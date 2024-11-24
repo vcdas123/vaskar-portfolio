@@ -1,12 +1,5 @@
 "use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
 import {
   ABOUT_DATA,
@@ -20,7 +13,12 @@ import Skills from "@/components/resume/Skills";
 import AboutMe from "@/components/resume/AboutMe";
 
 const DATA = [EXPERIENCE_DATA, EDUCATION_DATA, SKILLS_DATA, ABOUT_DATA];
-const tabContents = [<Experience />, <Education />, <Skills />, <AboutMe />];
+const tabContents = [
+  <Experience key={0} />,
+  <Education key={1} />,
+  <Skills key={2} />,
+  <AboutMe key={3} />,
+];
 
 const Resume = () => {
   return (
@@ -57,7 +55,7 @@ const Resume = () => {
                   <TabsContent
                     value={item?.title}
                     key={item?.title}
-                    className="mt-0 min-h-[480px]"
+                    className="mt-0 min-h-[480px] w-full h-full"
                   >
                     {tabContents[idx]}
                   </TabsContent>

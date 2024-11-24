@@ -3,6 +3,58 @@ import { SiExpress, SiMantine, SiTypescript } from "react-icons/si";
 import { RiNextjsFill, RiReactjsFill, RiTailwindCssFill } from "react-icons/ri";
 import { DiMongodb, DiMysql } from "react-icons/di";
 
+// ABOUT_DATA
+export interface AboutInfo {
+  label: string;
+  value: string;
+}
+
+export interface AboutData {
+  title: string;
+  desc: string;
+  info: AboutInfo[];
+}
+
+// EXPERIENCE_DATA
+export interface CompanyExperience {
+  name: string;
+  position: string;
+  duration: string;
+}
+
+export interface ExperienceData {
+  icon: string;
+  title: string;
+  desc: string;
+  companies: CompanyExperience[];
+}
+
+// EDUCATION_DATA
+export interface EducationInstitute {
+  institute: string;
+  degree: string;
+  duration: string;
+}
+
+export interface EducationData {
+  icon: string;
+  title: string;
+  desc: string;
+  institutes: EducationInstitute[];
+}
+
+// SKILLS_DATA
+export interface Skill {
+  label: string;
+  icon: JSX.Element;
+}
+
+export interface SkillsData {
+  title: string;
+  desc: string;
+  skills: Skill[];
+}
+
 function calculateDuration(): string {
   const startDate: Date = new Date("2023-04-17");
   const currentDate: Date = new Date();
@@ -24,7 +76,7 @@ function calculateDuration(): string {
   return `${yearsText} ${monthsText}`;
 }
 
-export const ABOUT_DATA = {
+export const ABOUT_DATA: AboutData = {
   title: "About Me",
   desc: "As a Software Development Engineer (SDE), I specialize in building robust applications using technologies such as HTML, CSS, JavaScript, TypeScript, React.js, Next.js, Node.js, MongoDB, and MySQL.",
   info: [
@@ -59,7 +111,7 @@ export const ABOUT_DATA = {
   ],
 };
 
-export const EXPERIENCE_DATA = {
+export const EXPERIENCE_DATA: ExperienceData = {
   icon: "/public/resume/badge.svg",
   title: "Experience",
   desc: "Experienced SDE proficient in MERN stack, building scalable web applications with React.js, Node.js, TypeScript, MongoDB, and MySQL.",
@@ -77,10 +129,10 @@ export const EXPERIENCE_DATA = {
   ],
 };
 
-export const EDUCATION_DATA = {
+export const EDUCATION_DATA: EducationData = {
   icon: "/public/resume/cap.svg",
   title: "Education",
-  desc: "I completed my 10th and 12th from a CBSE board school and later pursued a Master's degree in Computer Applications, equipping me with a solid foundation in computer science and application development.",
+  desc: "I completed my 10th and 12th from CBSE and earned a Master's in Computer Applications, building a strong foundation in computer science and application development.",
   institutes: [
     {
       institute: "Swami Vivekananda University | Barrackpore ",
@@ -105,7 +157,7 @@ export const EDUCATION_DATA = {
   ],
 };
 
-export const SKILLS_DATA = {
+export const SKILLS_DATA: SkillsData = {
   title: "Skills",
   desc: "Focused on creating scalable web solutions with MERN stack technologies like React.js, Node.js, TypeScript, MongoDB, and MySQL",
   skills: [
@@ -156,10 +208,6 @@ export const SKILLS_DATA = {
     {
       label: "MongoDB",
       icon: <DiMongodb />,
-    },
-    {
-      label: "MySQL",
-      icon: <DiMysql />,
     },
     {
       label: "MySQL",
