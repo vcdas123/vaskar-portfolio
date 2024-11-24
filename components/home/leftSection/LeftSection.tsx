@@ -14,7 +14,7 @@ const LeftSection = () => {
           Vaskar <br /> Chandra Das
         </span>
       </h1>
-      <p className="max-w-[700px] mb-9 text-white/80">
+      <p className="max-w-[700px] mb-9 mt-2 text-white/80">
         I enjoy delivering engaging digital solutions and am skilled in using
         multiple programming languages and technologies
       </p>

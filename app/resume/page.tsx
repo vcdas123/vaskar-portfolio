@@ -18,7 +18,6 @@ import Experience from "@/components/resume/Experience";
 import Education from "@/components/resume/Education";
 import Skills from "@/components/resume/Skills";
 import AboutMe from "@/components/resume/AboutMe";
-import { Fragment } from "react";
 
 const DATA = [EXPERIENCE_DATA, EDUCATION_DATA, SKILLS_DATA, ABOUT_DATA];
 const tabContents = [<Experience />, <Education />, <Skills />, <AboutMe />];
