@@ -1,7 +1,11 @@
 import React from "react";
 
 const Work = () => {
-  return <div>Work</div>;
+  return (
+    <section>
+      <div className="container mx-auto">work page</div>
+    </section>
+  );
 };
 
 export default Work;

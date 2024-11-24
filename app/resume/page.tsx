@@ -1,7 +1,11 @@
 import React from "react";
 
 const Resume = () => {
-  return <div>Resume</div>;
+  return (
+    <section>
+      <div className="container mx-auto">Resume</div>
+    </section>
+  );
 };
 
 export default Resume;
