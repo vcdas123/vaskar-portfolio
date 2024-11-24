@@ -1,6 +1,5 @@
 import React from "react";
 import { ABOUT_DATA, AboutInfo } from "./data";
-import { ScrollArea } from "../ui/scroll-area";
 
 const AboutMe = () => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Work = () => {
+const Projects = () => {
   return (
     <section>
       <div className="container mx-auto">work page</div>
@@ -8,4 +8,4 @@ const Work = () => {
   );
 };
 
-export default Work;
+export default Projects;

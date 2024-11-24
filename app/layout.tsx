@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "vcdas123@gmail.com",
+  title: "Vaskar .",
   description:
     "Portfolio showcasing expertise in MERN stack development, MySQL databases, and creating innovative web solutions with React, Node.js, and MongoDB.",
 };

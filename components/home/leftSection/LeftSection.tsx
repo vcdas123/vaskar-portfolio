@@ -9,7 +9,7 @@ const LeftSection = () => {
     <div className="text-center xl:text-left order-2 xl:order-none h-full">
       <span className="text-xl">Software Developer</span>
       <h1 className="h1">
-        Hello I&apos;m <br />
+        Hi I&apos;m <br />
         <span className="text-accent underline underline-offset-8">
           Vaskar <br /> Chandra Das
         </span>

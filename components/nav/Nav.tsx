@@ -70,8 +70,8 @@ const Nav = () => {
   const desktop = (
     <div className="hidden xl:flex items-center gap-8">
       <nav className="flex gap-8">{links}</nav>
-      <Link href="/works">
-        <Button>Works</Button>
+      <Link href="/projects">
+        <Button>Projects</Button>
       </Link>
     </div>
   );
