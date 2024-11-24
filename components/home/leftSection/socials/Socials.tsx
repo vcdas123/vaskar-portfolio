@@ -29,9 +29,9 @@ const SOCIAL_DATA: SocialDataIn[] = [
 const Socials = ({ containerStyles, iconStyles }: SocialsIn) => {
   return (
     <div className={containerStyles}>
-      {SOCIAL_DATA?.map((item: SocialDataIn) => {
+      {SOCIAL_DATA?.map((item: SocialDataIn, idx: number) => {
         return (
-          <Link key={item?.path} href={item?.path} className={iconStyles}>
+          <Link key={idx} href={item?.path} className={iconStyles}>
             {item?.icon}
           </Link>
         );

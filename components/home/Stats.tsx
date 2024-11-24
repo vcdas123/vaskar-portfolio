@@ -6,9 +6,19 @@ interface StatsIn {
   for: string;
 }
 
+function calculateRoundedYears(): number {
+  const startDate: Date = new Date("2023-04-17");
+  const currentDate: Date = new Date();
+  const timeDifference: number = currentDate.getTime() - startDate.getTime();
+
+  const years: number = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
+
+  return Math.round(years);
+}
+
 const STATS_DATA: StatsIn[] = [
   {
-    count: 1,
+    count: calculateRoundedYears(),
     for: "Years of experience",
   },
   {

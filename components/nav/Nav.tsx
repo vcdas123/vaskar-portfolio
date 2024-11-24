@@ -31,10 +31,10 @@ const LINKS_DATA: LinksIn[] = [
     name: "resume",
     path: "/resume",
   },
-  {
-    name: "work",
-    path: "/work",
-  },
+  // {
+  //   name: "work",
+  //   path: "/work",
+  // },
   {
     name: "contact",
     path: "/contact",
@@ -70,8 +70,8 @@ const Nav = () => {
   const desktop = (
     <div className="hidden xl:flex items-center gap-8">
       <nav className="flex gap-8">{links}</nav>
-      <Link href="/contact">
-        <Button>Hire me</Button>
+      <Link href="/works">
+        <Button>Works</Button>
       </Link>
     </div>
   );
