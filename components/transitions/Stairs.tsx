@@ -31,7 +31,7 @@ const Stairs = () => {
             exit="exit"
             transition={{
               delay: reverseIdx(totalStairs, idx) * 0.1,
-              duration: 0.4,
+              duration: 0.2,
               ease: "easeInOut",
             }}
             className="h-full w-full bg-white relative"

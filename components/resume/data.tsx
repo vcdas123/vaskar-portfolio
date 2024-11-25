@@ -215,3 +215,10 @@ export const SKILLS_DATA: SkillsData = {
     },
   ],
 };
+
+export const RESUME_DATA = [
+  EXPERIENCE_DATA,
+  EDUCATION_DATA,
+  SKILLS_DATA,
+  ABOUT_DATA,
+];
