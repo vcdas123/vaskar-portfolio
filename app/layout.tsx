@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 // import localFont from "next/font/local";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
+import "swiper/css";
 import Header from "@/components/header/Header";
 import PageTransition from "@/components/transitions/PageTransition";
 import StairTransition from "@/components/transitions/StairTransition";

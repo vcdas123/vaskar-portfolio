@@ -42,7 +42,7 @@ const LINKS_DATA: LinksIn[] = [
 ];
 
 const Nav = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const pathname = usePathname();
 
   const handleOpen = () => setIsOpen(true);

@@ -50,7 +50,7 @@ const RightSection = () => {
             <motion.circle
               cx={"253"}
               cy={"253"}
-              r={"250"}
+              r={"246"}
               stroke={"#e67700"}
               strokeWidth={"5"}
               strokeLinecap={"round"}
