@@ -8,6 +8,7 @@ import { CiMenuFries } from 'react-icons/ci';
 import { FaAddressCard, FaHome, FaServicestack } from 'react-icons/fa';
 import { IoMdContact } from 'react-icons/io';
 import { GrProjects } from 'react-icons/gr';
+import { RiCustomerService2Fill } from 'react-icons/ri';
 
 interface LinksIn {
   name: string;
@@ -24,7 +25,7 @@ const LINKS_DATA: LinksIn[] = [
   {
     name: 'services',
     path: '/services',
-    icon: <FaServicestack />,
+    icon: <RiCustomerService2Fill />,
   },
   {
     name: 'resume',
