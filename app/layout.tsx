@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 // import localFont from "next/font/local";
-import { JetBrains_Mono } from "next/font/google";
-import "./globals.css";
-import "swiper/css";
-import Header from "@/components/header/Header";
-import PageTransition from "@/components/transitions/PageTransition";
-import StairTransition from "@/components/transitions/StairTransition";
+import { JetBrains_Mono } from 'next/font/google';
+import './globals.css';
+import 'swiper/css';
+import Header from '@/components/header/Header';
+import PageTransition from '@/components/transitions/PageTransition';
+import StairTransition from '@/components/transitions/StairTransition';
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -19,15 +19,15 @@ import StairTransition from "@/components/transitions/StairTransition";
 // });
 
 const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
-  variable: "--font-jetbrainsMono",
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
+  variable: '--font-jetbrainsMono',
 });
 
 export const metadata: Metadata = {
-  title: "Vaskar .",
+  title: 'Vaskar .',
   description:
-    "Portfolio showcasing expertise in MERN stack development, MySQL databases, and creating innovative web solutions with React, Node.js, and MongoDB.",
+    'Portfolio showcasing expertise in MERN stack development, MySQL databases, and creating innovative web solutions with React, Node.js, and MongoDB.',
 };
 
 export default function RootLayout({
