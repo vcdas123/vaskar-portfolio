@@ -1,22 +1,39 @@
-import * as React from "react"
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
-import { cn } from "@/lib/utils"
+interface TextareaProps extends React.ComponentProps<'textarea'> {
+  error?: string;
+}
 
-const Textarea = React.forwardRef<
-  HTMLTextAreaElement,
-  React.ComponentProps<"textarea">
->(({ className, ...props }, ref) => {
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, error = '', ...props }, ref) => {
   return (
-    <textarea
-      className={cn(
-        "flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-base ring-offset-white placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-slate-800 dark:bg-slate-950 dark:ring-offset-slate-950 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300",
-        className
+    <div>
+      <textarea
+        className={cn(
+          `flex min-h-[80px] w-full rounded-lg border`,
+          error ? 'border-red-500 focus-visible:ring-red-500' : 'border-white/10 focus-visible:ring-accent',
+          'bg-primary px-4 py-5 text-base placeholder:text-white/60',
+          'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-0',
+          'disabled:cursor-not-allowed disabled:opacity-50',
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+      {error && (
+        <motion.span
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -4 }}
+          className="text-red-500 text-sm mt-2 block"
+        >
+          {error}
+        </motion.span>
       )}
-      ref={ref}
-      {...props}
-    />
-  )
-})
-Textarea.displayName = "Textarea"
+    </div>
+  );
+});
+Textarea.displayName = 'Textarea';
 
-export { Textarea }
+export { Textarea };

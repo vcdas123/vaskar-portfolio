@@ -1,6 +1,6 @@
-import Link from "next/link";
-import React, { ReactNode } from "react";
-import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
+import Link from 'next/link';
+import React, { ReactNode } from 'react';
+import { FaGithub, FaLinkedin, FaFacebook } from 'react-icons/fa';
 
 interface SocialDataIn {
   icon: ReactNode;
@@ -14,16 +14,16 @@ interface SocialsIn {
 const SOCIAL_DATA: SocialDataIn[] = [
   {
     icon: <FaGithub />,
-    path: "",
+    path: 'https://github.com/vcdas123',
   },
   {
     icon: <FaLinkedin />,
-    path: "",
+    path: 'https://www.linkedin.com/in/vcdas/',
   },
-  {
-    icon: <FaFacebook />,
-    path: "",
-  },
+  // {
+  //   icon: <FaFacebook />,
+  //   path: '',
+  // },
 ];
 
 const Socials = ({ containerStyles, iconStyles }: SocialsIn) => {

@@ -1,5 +1,5 @@
-"use client";
-import { motion } from "framer-motion";
+'use client';
+import { motion } from 'framer-motion';
 
 interface ServicesDataIn {
   id: string;
@@ -9,14 +9,14 @@ interface ServicesDataIn {
 
 const SERVICES_DATA: ServicesDataIn[] = [
   {
-    id: "01",
-    title: "Frontend Development",
-    desc: "Proficient in developing intuitive, user-focused UI components leveraging React.js, Next.js, and TypeScript, combined with advanced styling techniques using Tailwind CSS, Mantine UI, and Bootstrap for seamless, responsive applications.",
+    id: '01',
+    title: 'Frontend Development',
+    desc: 'Proficient in developing intuitive, user-focused UI components leveraging React.js, Next.js, and TypeScript, combined with advanced styling techniques using Tailwind CSS, Mantine UI, and Bootstrap for seamless, responsive applications.',
   },
   {
-    id: "02",
-    title: "Backend Development",
-    desc: "Focused on crafting robust backend solutions with Node.js, TypeScript, and Express.js, utilizing MySQL and TypeORM to ensure seamless database integration, efficient API development, and high-performing server-side functionality.",
+    id: '02',
+    title: 'Backend Development',
+    desc: 'Focused on crafting robust backend solutions with Node.js, TypeScript, and Express.js, utilizing MySQL and TypeORM to ensure seamless database integration, efficient API development, and high-performing server-side functionality.',
   },
 ];
 
@@ -33,17 +33,14 @@ const Services = () => {
             transition: {
               delay: 2,
               duration: 0.4,
-              ease: "easeIn",
+              ease: 'easeIn',
             },
           }}
           className="grid grid-cols-1 md:grid-cols-2 gap-[60px]"
         >
           {SERVICES_DATA?.map((item: ServicesDataIn) => {
             return (
-              <div
-                key={item?.id}
-                className="flex-1 flex flex-col justify-center gap-6 group cursor-pointer"
-              >
+              <div key={item?.id} className="flex-1 flex flex-col justify-center gap-6 group cursor-pointer">
                 <div className="w-full">
                   <div className="text-5xl font-extrabold text-outline text-transparent group-hover:text-outline-hover  transition-all duration-500">
                     {item?.id}
