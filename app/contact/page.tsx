@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { ReactNode, useState } from 'react';
 import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
 import { FiSend } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 interface InfoIn {
   icon: ReactNode;
@@ -42,6 +43,7 @@ const initialState = {
 const Contact = () => {
   const [formData, setFormData] = useState<typeof initialState>(initialState);
   const [formErrors, setFormErrors] = useState<typeof initialState>(initialState);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const validateField = (name: string, value: string) => {
     switch (name) {
@@ -79,7 +81,7 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const errors: typeof initialState = {
@@ -97,7 +99,29 @@ const Contact = () => {
 
     console.log('Form submitted:', formData);
 
-    setFormData(initialState);
+    try {
+      setIsLoading(true);
+      const res = await fetch('https://vcdas-portfolio-default-rtdb.firebaseio.com/messages.json', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (data && data?.name) {
+        console.log(data);
+        toast.success('Message sent.');
+        setFormData(initialState);
+      } else {
+        toast.error('Something went wrong!');
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error('Something went wrong!');
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -163,8 +187,14 @@ const Contact = () => {
                 error={formErrors.message}
               />
               <Button type="submit">
-                <FiSend />
-                Send Message
+                {isLoading ? (
+                  'Sending...'
+                ) : (
+                  <>
+                    <FiSend />
+                    Send Message
+                  </>
+                )}
               </Button>
             </form>
           </div>
