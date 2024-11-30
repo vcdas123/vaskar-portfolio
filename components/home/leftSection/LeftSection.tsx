@@ -1,14 +1,14 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import React from 'react';
-import { FiDownload } from 'react-icons/fi';
-import Socials from './socials/Socials';
+"use client";
+import { Button } from "@/components/ui/button";
+import React from "react";
+import { FiDownload } from "react-icons/fi";
+import Socials from "./socials/Socials";
 
 const LeftSection = () => {
   const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = '/cv/vcdas_01_10_2024.pdf';
-    link.download = 'vcdas_01_10_2024.pdf';
+    const link = document.createElement("a");
+    link.href = "/cv/resume.pdf";
+    link.download = "vaskar_resume.pdf";
     link.click();
   };
   return (
@@ -21,13 +21,13 @@ const LeftSection = () => {
         </span>
       </h1>
       <p className="max-w-[700px] mb-9 mt-2 text-white/80">
-        I enjoy delivering engaging digital solutions and am skilled in using multiple programming languages and
-        technologies
+        I enjoy delivering engaging digital solutions and am skilled in using
+        multiple programming languages and technologies
       </p>
       <div className="flex flex-col xl:flex-row items-center gap-8">
         <Button
-          variant={'outline'}
-          size={'lg'}
+          variant={"outline"}
+          size={"lg"}
           className="uppercase flex items-center gap-2 justify-center"
           onClick={handleDownload}
         >
