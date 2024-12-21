@@ -1,0 +1,12 @@
+/* Spoiler.module.css */
+.spoilerContent {
+  transition: height 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.spoilerButton {
+  color: #3b82f6; /* Tailwind equivalent of text-blue-500 */
+  margin-top: 0.5rem; /* Tailwind equivalent of mt-2 */
+  font-size: 0.75rem; /* Tailwind equivalent of text-xs */
+  cursor: pointer;
+}
