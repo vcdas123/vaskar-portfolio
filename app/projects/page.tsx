@@ -17,7 +17,7 @@ import { PiMouseLeftClickFill } from "react-icons/pi";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperIn } from "swiper/types";
 
-export interface ProjectIn {
+interface ProjectIn {
   id: string;
   title: string;
   category: string;
@@ -90,14 +90,14 @@ const PROJECTS_DATA: ProjectIn[] = [
   },
 ];
 
-export interface RestIn {
+interface RestIn {
   id: string;
   title: string;
   desc: string;
   wordsToHighlight?: string[];
 }
 
-export const REST_DATA: RestIn[] = [
+const REST_DATA: RestIn[] = [
   {
     id: "01",
     title: "Custom React Table Hook",
@@ -128,7 +128,7 @@ export const REST_DATA: RestIn[] = [
   {
     id: "03",
     title: "Select Component",
-    desc: "Built a reusable Select component in React with TypeScript for type safety, free from the limitations of the native HTML <select> tag. It supports customizable options, labels, values, and icons for both the selected value and dropdown options. The component features dynamic positioning, a clear selection button, and is styled with TailwindCSS. It also offers flexible configuration for width, placeholder, and border visibility, ensuring seamless integration into various web applications.",
+    desc: "Built a reusable Select component in React with TypeScript for type safety, freefrom the limitations of the native HTML <select> tag. It supports customizable options, labels, values, and icons for both the selected value and dropdown options. The component features dynamic positioning, a clear selection button, and is styled with TailwindCSS. It also offers flexible configuration for width, placeholder, and border visibility, ensuring seamless integration into various web applications.",
     wordsToHighlight: [
       "customizable options",
       "icons",
