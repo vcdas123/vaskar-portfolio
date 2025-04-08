@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import { CiMenuFries } from 'react-icons/ci';
-import { FaAddressCard, FaHome, FaServicestack } from 'react-icons/fa';
+import { FaAddressCard, FaHome } from 'react-icons/fa';
 import { IoMdContact } from 'react-icons/io';
 import { GrProjects } from 'react-icons/gr';
 import { RiCustomerService2Fill } from 'react-icons/ri';
@@ -24,12 +24,12 @@ const LINKS_DATA: LinksIn[] = [
   },
   {
     name: 'services',
-    path: '/services',
+    path: '#services',
     icon: <RiCustomerService2Fill />,
   },
   {
     name: 'resume',
-    path: '/resume',
+    path: '#resume',
     icon: <FaAddressCard />,
   },
   // {
@@ -38,7 +38,7 @@ const LINKS_DATA: LinksIn[] = [
   // },
   {
     name: 'contact',
-    path: '/contact',
+    path: '#contact',
     icon: <IoMdContact />,
   },
 ];
@@ -73,7 +73,7 @@ const Nav = () => {
   const desktop = (
     <div className="hidden xl:flex items-center gap-8">
       <nav className="flex gap-8">{links}</nav>
-      <Link href="/projects">
+      <Link href="#projects">
         <Button className="flex gap-1">
           <GrProjects /> Projects
         </Button>
@@ -98,7 +98,7 @@ const Nav = () => {
           <nav className="flex flex-col gap-4 justify-center items-center">
             {links}
             <Link
-              href={'/projects'}
+              href={'#projects'}
               className={`capitalize transition-all flex items-center gap-1 hover:text-accent-hover font-medium ${
                 '/projects' === pathname && 'text-accent border-b-2 border-accent'
               }`}
