@@ -1,5 +1,7 @@
-import React from 'react';
-import SlideUpWrapper, { SlideUpWrapperProps } from '../SlideUpWrapper/SlideUpWrapper';
+import React from "react";
+import SlideUpWrapper, {
+  SlideUpWrapperProps,
+} from "../SlideUpWrapper/SlideUpWrapper";
 
 interface SectionWrapperProps extends SlideUpWrapperProps {
   icon: React.ReactNode;
@@ -7,7 +9,13 @@ interface SectionWrapperProps extends SlideUpWrapperProps {
   description: string;
 }
 
-const SectionWrapper = ({ sectionId, children, description, icon, title }: SectionWrapperProps) => {
+const SectionWrapper = ({
+  sectionId,
+  children,
+  description,
+  icon,
+  title,
+}: SectionWrapperProps) => {
   return (
     <SlideUpWrapper sectionId={sectionId}>
       <section className="min-h-[80vh] flex flex-col justify-center py-12 xl:py-0">
@@ -19,6 +27,7 @@ const SectionWrapper = ({ sectionId, children, description, icon, title }: Secti
             {title}
           </h1>
           <p className="mb-9 text-white/80">{description}</p>
+          <br />
           {children}
         </div>
       </section>
