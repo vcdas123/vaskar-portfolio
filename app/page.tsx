@@ -1,10 +1,10 @@
-import Contact from '@/components/contact/Contact';
-import LeftSection from '@/components/home/leftSection/LeftSection';
-import RightSection from '@/components/home/rightSection/RightSection';
-import Stats from '@/components/home/Stats';
-import Projects from '@/components/projects/Projects';
-import Resume from '@/components/resume/Resume';
-import Services from '@/components/Services/Services';
+import Contact from "@/components/contact/Contact";
+import LeftSection from "@/components/home/leftSection/LeftSection";
+import RightSection from "@/components/home/rightSection/RightSection";
+import Stats from "@/components/home/Stats";
+import Projects from "@/components/projects/Projects";
+import Resume from "@/components/resume/Resume";
+import Services from "@/components/Services/Services";
 
 export default function Home() {
   return (
