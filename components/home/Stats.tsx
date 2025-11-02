@@ -7,7 +7,7 @@ interface StatsIn {
 }
 
 function calculateRoundedYears(): number {
-  const startDate: Date = new Date("2023-04-17");
+  const startDate: Date = new Date("2023-09-04");
   const currentDate: Date = new Date();
   const timeDifference: number = currentDate.getTime() - startDate.getTime();
 
