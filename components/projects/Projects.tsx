@@ -307,7 +307,6 @@ const Projects = () => {
             })}
 
             <SliderBtn
-              PROJECTS_DATA={PROJECTS_DATA}
               containerStyles="hidden xl:flex gap-2 absolute right-0 bottom-0 z-20 justify-between xl:w-max xl:justify-none m-3"
               btnStyles="bg-accent hover:bg-accent-hover text-primary text-[22px] w-[40px] h-[40px] flex justify-center items-center transition-all cursor-pointer rounded-full shadow-lg disabled:text-gray-500 disabled:cursor-not-allowed disabled:bg-gray-500/30"
             />
