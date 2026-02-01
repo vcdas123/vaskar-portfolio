@@ -1,49 +1,61 @@
 import type { Metadata } from "next";
-// import localFont from "next/font/local";
 import { JetBrains_Mono } from "next/font/google";
+import "@mantine/core/styles.css";
 import "./globals.css";
-import "swiper/css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  ColorSchemeScript,
+  MantineProvider,
+  mantineHtmlProps,
+} from "@mantine/core";
+import { mantineTheme } from "@/theme/mantine-theme";
 import Header from "@/components/header/Header";
-import PageTransition from "@/components/transitions/PageTransition";
-import StairTransition from "@/components/transitions/StairTransition";
-
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
+import { LayoutShell } from "@/components/ui/LayoutShell";
+import { PageTransition } from "@/components/ui/PageTransition";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-jetbrainsMono",
 });
 
 export const metadata: Metadata = {
-  title: "Vaskar .",
+  title: "Vaskar - Portfolio",
   description:
-    "Portfolio showcasing expertise in MERN stack development, MySQL databases, and creating innovative web solutions with React, Node.js, and MongoDB.",
+    "Portfolio showcasing expertise in MERN stack development, MySQL databases, and creating innovative web solutions.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={jetbrainsMono.variable}>
-        <ToastContainer />
-        <Header />
-        <StairTransition />
-        <PageTransition>{children}</PageTransition>
+    <html lang="en" {...mantineHtmlProps} suppressHydrationWarning>
+      <head>
+        <ColorSchemeScript defaultColorScheme="dark" />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: "html,body{background-color:#1c1c22!important}",
+          }}
+        />
+      </head>
+      <body
+        className={`${jetbrainsMono.variable} font-primary`}
+        suppressHydrationWarning
+        style={{ backgroundColor: "#1c1c22" }}
+      >
+        <MantineProvider theme={mantineTheme} defaultColorScheme="dark">
+          <ToastContainer />
+          <LayoutShell>
+            <Header />
+            <main className="flex-1 w-full max-w-7xl mx-auto px-6 py-8">
+              <PageTransition>{children}</PageTransition>
+            </main>
+          </LayoutShell>
+        </MantineProvider>
       </body>
     </html>
   );

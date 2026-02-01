@@ -1,41 +1,45 @@
-import Link from 'next/link';
-import React, { ReactNode } from 'react';
-import { FaGithub, FaLinkedin, FaFacebook } from 'react-icons/fa';
+"use client";
 
-interface SocialDataIn {
-  icon: ReactNode;
-  path: string;
-}
-interface SocialsIn {
+import Link from "next/link";
+import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
+
+interface SocialsProps {
   containerStyles: string;
   iconStyles: string;
+  socialLinks?: Record<string, string>;
 }
 
-const SOCIAL_DATA: SocialDataIn[] = [
-  {
-    icon: <FaGithub />,
-    path: 'https://github.com/vcdas123',
-  },
-  {
-    icon: <FaLinkedin />,
-    path: 'https://www.linkedin.com/in/vcdas/',
-  },
-  // {
-  //   icon: <FaFacebook />,
-  //   path: '',
-  // },
-];
+const DEFAULT_LINKS = {
+  github: "https://github.com/vcdas123",
+  linkedin: "https://www.linkedin.com/in/vcdas/",
+};
 
-const Socials = ({ containerStyles, iconStyles }: SocialsIn) => {
+const Socials = ({
+  containerStyles,
+  iconStyles,
+  socialLinks = {},
+}: SocialsProps) => {
+  const links = [
+    { Icon: IconBrandGithub, href: socialLinks.github || DEFAULT_LINKS.github },
+    {
+      Icon: IconBrandLinkedin,
+      href: socialLinks.linkedin || DEFAULT_LINKS.linkedin,
+    },
+  ];
+
   return (
     <div className={containerStyles}>
-      {SOCIAL_DATA?.map((item: SocialDataIn, idx: number) => {
-        return (
-          <Link key={idx} href={item?.path} className={iconStyles}>
-            {item?.icon}
-          </Link>
-        );
-      })}
+      {links.map(({ Icon, href }) => (
+        <Link
+          key={href}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={iconStyles}
+        >
+          <Icon size={20} stroke={2} />
+        </Link>
+      ))}
     </div>
   );
 };

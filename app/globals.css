@@ -3,8 +3,21 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    background-color: #1c1c22;
+  }
   body {
-    @apply font-primary bg-primary text-white leading-loose;
+    @apply font-primary leading-loose text-base;
+    @apply bg-primary text-white;
+  }
+  .section-heading {
+    @apply text-lg font-semibold;
+  }
+  a {
+    @apply text-inherit no-underline;
+  }
+  a:hover {
+    @apply text-inherit;
   }
   .h1 {
     @apply text-[48px] xl:text-[80px] leading-[1.1] font-semibold;
@@ -15,11 +28,21 @@
   .h3 {
     @apply text-[20px] xl:text-[24px] leading-[1.1] font-semibold;
   }
-
   .text-outline {
     -webkit-text-stroke: 1px #ffffff;
   }
   .text-outline-hover {
-    -webkit-text-stroke: 1px #f08c00;
+    -webkit-text-stroke: 1px #fd7e14;
   }
+  .card-hover {
+    transition: box-shadow 0.3s ease;
+  }
+  .card-hover:hover {
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.25);
+  }
+}
+
+/* Smooth transitions for theme switching */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

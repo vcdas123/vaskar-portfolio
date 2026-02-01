@@ -1,67 +1,96 @@
 "use client";
-import CountUp from "react-countup";
 
-interface StatsIn {
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
+interface StatItem {
   count: number;
-  for: string;
+  label: string;
 }
 
-function calculateRoundedYears(): number {
-  const startDate: Date = new Date("2023-09-04");
-  const currentDate: Date = new Date();
-  const timeDifference: number = currentDate.getTime() - startDate.getTime();
-
-  const years: number = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
-
-  return Math.round(years);
+interface StatsProps {
+  stats?: StatItem[];
 }
 
-const STATS_DATA: StatsIn[] = [
-  {
-    count: calculateRoundedYears(),
-    for: "Years of experience",
-  },
-  {
-    count: 8,
-    for: "Projects completed",
-  },
-  {
-    count: 10,
-    for: "Technologies mastered",
-  },
+const DEFAULT_STATS: StatItem[] = [
+  { count: 2, label: "Years of experience" },
+  { count: 7, label: "Projects completed" },
+  { count: 13, label: "Technologies mastered" },
 ];
 
-const Stats = () => {
-  return (
-    <section className="pt-4 pb-12 xl:pt-0 xl:pb-0">
-      <div className="container mx-auto">
-        <div className="flex flex-wrap gap-6 max-w-[80vw] mx-auto xl:max-w-none ">
-          {STATS_DATA?.map((item: StatsIn, idx: number) => {
-            return (
-              <div
-                key={idx}
-                className="flex-1 flex gap-4 items-center justify-center xl:justify-start"
-              >
-                <CountUp
-                  end={item?.count}
-                  duration={5}
-                  delay={2}
-                  className="text-4xl xl:text-6xl font-extrabold "
-                />
-                <p
-                  className={`${
-                    item?.for?.length > 15 ? "max-w-[150px]" : "max-w-[100px]"
-                  } leading-snug text-white/80`}
-                >
-                  {item?.for}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-};
+function AnimatedNumber({
+  value,
+  suffix = "",
+  isHovered,
+}: {
+  value: number;
+  suffix?: string;
+  isHovered: boolean;
+}) {
+  const [display, setDisplay] = useState(value);
 
-export default Stats;
+  useEffect(() => {
+    if (!isHovered) {
+      setDisplay(0);
+      return;
+    }
+    const duration = 600;
+    const start = Date.now();
+    const timer = setInterval(() => {
+      const elapsed = Date.now() - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(eased * value));
+      if (progress >= 1) clearInterval(timer);
+    }, 16);
+    return () => clearInterval(timer);
+  }, [isHovered, value]);
+
+  return (
+    <motion.span
+      animate={
+        isHovered
+          ? {
+              scale: [1, 1.15, 0.95, 1.08, 1],
+              transition: { duration: 0.5 },
+            }
+          : { scale: 1 }
+      }
+    >
+      {isHovered ? display : value}
+      {suffix}
+    </motion.span>
+  );
+}
+
+export default function Stats({ stats = DEFAULT_STATS }: StatsProps) {
+  return (
+    <div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {stats.map((item, i) => (
+          <StatCard key={item.label} item={item} index={i} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StatCard({ item, index }: { item: StatItem; index: number }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group bg-white dark:bg-white/0 rounded-2xl p-6 shadow-card border border-gray-100 dark:border-white/5 text-center dark:backdrop-blur cursor-pointer"
+    >
+      <p className="text-4xl font-bold text-accent mb-1">
+        <AnimatedNumber value={item.count} suffix="+" isHovered={isHovered} />
+      </p>
+      <p className="text-sm text-white/70">{item.label}</p>
+    </motion.div>
+  );
+}

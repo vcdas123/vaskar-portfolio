@@ -1,45 +1,64 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import React from "react";
-import { FiDownload } from "react-icons/fi";
-import Socials from "./socials/Socials";
 
-const LeftSection = () => {
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = "/cv/resume.pdf";
-    link.download = "vaskar_resume.pdf";
-    link.click();
-  };
+import Link from "next/link";
+import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
+
+interface LeftSectionProps {
+  title?: string;
+  name?: string;
+  description?: string;
+  socialLinks?: { github?: string; linkedin?: string };
+}
+
+const DEFAULT_SOCIAL = {
+  github: "https://github.com/vcdas123",
+  linkedin: "https://www.linkedin.com/in/vcdas/",
+};
+
+const LeftSection = ({
+  title = "Software Developer",
+  name = "Vaskar Chandra Das",
+  description = "I enjoy delivering engaging digital solutions and am skilled in using multiple programming languages and technologies.",
+  socialLinks,
+}: LeftSectionProps) => {
+  const nameParts = name.split(" ");
+  const firstName = nameParts[0] || "Vaskar";
+  const restName = nameParts.slice(1).join(" ") || "Chandra Das";
+  const links = [
+    {
+      Icon: IconBrandGithub,
+      href: socialLinks?.github || DEFAULT_SOCIAL.github,
+    },
+    {
+      Icon: IconBrandLinkedin,
+      href: socialLinks?.linkedin || DEFAULT_SOCIAL.linkedin,
+    },
+  ];
+
   return (
     <div className="text-center xl:text-left order-2 xl:order-none h-full">
-      <span className="text-xl">Software Developer</span>
-      <h1 className="h1">
+      <span className="text-xl text-white/80">{title}</span>
+      <h1 className="h1 mt-2 text-white">
         Hello I&apos;m <br />
         <span className="text-accent underline underline-offset-8">
-          Vaskar <br /> Chandra Das
+          {firstName} <br /> {restName}
         </span>
       </h1>
-      <p className="max-w-[700px] mb-9 mt-2 text-white/80">
-        I enjoy delivering engaging digital solutions and am skilled in using
-        multiple programming languages and technologies
+      <p className="max-w-[700px] mt-2 text-white/80 mx-auto xl:mx-0">
+        {description}
       </p>
-      <div className="flex flex-col xl:flex-row items-center gap-8">
-        <Button
-          variant={"outline"}
-          size={"lg"}
-          className="uppercase flex items-center gap-2 justify-center"
-          onClick={handleDownload}
-        >
-          <span>Resume</span>
-          <FiDownload className="text-xl" />
-        </Button>
-        <div className="mb-8 xl:mb-0">
-          <Socials
-            containerStyles="flex gap-8"
-            iconStyles="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"
-          />
-        </div>
+      <div className="flex gap-4 mt-6 justify-center xl:justify-start">
+        {links.map(({ Icon, href }) => (
+          <Link
+            key={href}
+            href={href}
+            target="_blank"
+            rel="noopener"
+            className="text-white/70 hover:text-accent transition-colors"
+          >
+            <Icon size={24} stroke={2} />
+          </Link>
+        ))}
       </div>
     </div>
   );

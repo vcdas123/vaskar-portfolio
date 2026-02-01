@@ -1,55 +1,55 @@
 "use client";
 
-import * as React from "react";
-import * as TabsPrimitive from "@radix-ui/react-tabs";
+import {
+  Tabs as MantineTabs,
+  TabsList as MantineTabsList,
+  TabsPanel as MantineTabsPanel,
+  TabsTab as MantineTabsTab,
+  type TabsProps,
+  type TabsListProps,
+  type TabsPanelProps,
+  type TabsTabProps,
+} from "@mantine/core";
 
-import { cn } from "@/lib/utils";
+export interface TabsWrapperProps extends TabsProps {
+  children: React.ReactNode;
+}
 
-const Tabs = TabsPrimitive.Root;
+export function Tabs({
+  children,
+  color = "orange",
+  ...props
+}: TabsWrapperProps) {
+  return (
+    <MantineTabs color={color} {...props}>
+      {children}
+    </MantineTabs>
+  );
+}
 
-const TabsList = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.List>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.List
-    ref={ref}
-    className={cn(
-      "inline-flex h-auto rounded-md p-1 text-primary gap-4",
-      className
-    )}
-    {...props}
-  />
-));
-TabsList.displayName = TabsPrimitive.List.displayName;
+export interface TabsListWrapperProps extends TabsListProps {
+  children: React.ReactNode;
+}
 
-const TabsTrigger = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Trigger
-    ref={ref}
-    className={cn(
-      "inline-flex items-center  bg-[#27272c] justify-center whitespace-nowrap text-white rounded-lg p-3 text-base font-medium ring-offset-white transition-all duration-300 hover:bg-accent hover:text-primary disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-accent data-[state=active]:text-primary data-[state=active]:font-bold data-[state=active]:shadow-sm ",
-      className
-    )}
-    {...props}
-  />
-));
-TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
+export function TabsList({ children, ...props }: TabsListWrapperProps) {
+  return <MantineTabsList {...props}>{children}</MantineTabsList>;
+}
 
-const TabsContent = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Content
-    ref={ref}
-    className={cn(
-      "mt-2 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300",
-      className
-    )}
-    {...props}
-  />
-));
-TabsContent.displayName = TabsPrimitive.Content.displayName;
+export interface TabsPanelWrapperProps extends TabsPanelProps {
+  children: React.ReactNode;
+}
 
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+export function TabsPanel({ children, ...props }: TabsPanelWrapperProps) {
+  return <MantineTabsPanel {...props}>{children}</MantineTabsPanel>;
+}
+
+export interface TabsTabWrapperProps extends TabsTabProps {
+  children: React.ReactNode;
+}
+
+export function TabsTab({ children, ...props }: TabsTabWrapperProps) {
+  return <MantineTabsTab {...props}>{children}</MantineTabsTab>;
+}
+
+export const TabsContent = TabsPanel;
+export const TabsTrigger = TabsTab;
