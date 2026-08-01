@@ -71,6 +71,13 @@ export const radii = {
 /** Layout rails shared by the shell and every 2-column section head. */
 export const layout = {
   'shell-max': '1500px',
+  /**
+   * Per-side page margin. Fluid rather than stepped: tight on phones so content
+   * keeps its width, generous on large screens so the page is not edge-to-edge.
+   * 320px -> 14px, 768px -> 35px, 1440px -> 65px, 1920px+ -> 80px.
+   * Replaces the reference's fixed 48 / 34 / 22px gutters.
+   */
+  'app-margin': 'clamp(14px, 4.5vw, 80px)',
   'shell-gutter': '48px',
   'shell-gutter-md': '34px',
   'shell-gutter-sm': '22px',

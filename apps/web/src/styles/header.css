@@ -29,11 +29,9 @@ html {
   backdrop-filter: blur(10px) saturate(140%);
   -webkit-backdrop-filter: blur(10px) saturate(140%);
 
-  /* The shell's horizontal gutter is on an ancestor, so the sticky bar spans the
-     content width exactly as before; the negative inline margin/padding pair
-     widens only the painted background to the viewport edge. */
-  margin-inline: calc(-1 * var(--portfolio-sticky-bleed));
-  padding-inline: var(--portfolio-sticky-bleed);
+  /* The bar spans the content width, so it lines up with every section below it
+     instead of bleeding to the viewport edge. Nothing shows in the side margins
+     because the content is inset by exactly the same amount. */
 }
 
 /* --- Brand wordmark ------------------------------------------------------- */
@@ -82,23 +80,6 @@ html {
   .brand-name {
     font-size: 14px;
     letter-spacing: 0.16em;
-  }
-}
-
-/* Half the shell gutter on each side — see tokens.ts for the gutter values. */
-:root {
-  --portfolio-sticky-bleed: calc(var(--portfolio-shell-gutter) / 2);
-}
-
-@media (max-width: 1000px) {
-  :root {
-    --portfolio-sticky-bleed: calc(var(--portfolio-shell-gutter-md) / 2);
-  }
-}
-
-@media (max-width: 600px) {
-  :root {
-    --portfolio-sticky-bleed: calc(var(--portfolio-shell-gutter-sm) / 2);
   }
 }
 

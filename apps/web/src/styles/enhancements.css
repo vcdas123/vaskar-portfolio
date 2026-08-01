@@ -5,6 +5,22 @@
  * intentional deviations are all visible in one place.
  */
 
+/* --- App frame -------------------------------------------------------------
+ * The reference pins the page to fixed 48 / 34 / 22px side gutters. This replaces
+ * them with a margin that scales with the viewport — tight on phones, generous on
+ * large screens — so the page is never edge-to-edge on a wide display.
+ *
+ * Horizontal only: vertical spacing stays exactly as the reference sets it, via
+ * each section's own padding.
+ *
+ * Declared here rather than in reference/core.css so that file stays a faithful
+ * port; this rule loads later and therefore wins, including over core's
+ * `max-width` gutter overrides.
+ */
+.shell {
+  width: min(var(--portfolio-shell-max), calc(100% - 2 * var(--portfolio-app-margin)));
+}
+
 /* Text selection in the terminal's lime rather than the browser's default blue. */
 ::selection {
   background: var(--portfolio-primary);

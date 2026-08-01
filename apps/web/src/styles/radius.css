@@ -81,9 +81,9 @@
 
 /* --- Sticky header -------------------------------------------------------- */
 
-/* The header spans the viewport, so rounding its corners would leave slivers of
-   page showing at the top edge. Its lower corners are rounded instead, which
-   reads as a panel resting over the content it blurs. */
+/* The header sits flush against the top of the viewport, so rounding its top
+   corners would leave slivers of page showing above it. Only the lower corners are
+   rounded, which reads as a bar resting over the content it blurs. */
 .top {
   border-bottom-left-radius: var(--portfolio-radius-md);
   border-bottom-right-radius: var(--portfolio-radius-md);

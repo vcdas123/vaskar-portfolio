@@ -41,6 +41,7 @@
 
   /* Layout rails */
   --portfolio-shell-max: 1500px;
+  --portfolio-app-margin: clamp(14px, 4.5vw, 80px);
   --portfolio-shell-gutter: 48px;
   --portfolio-shell-gutter-md: 34px;
   --portfolio-shell-gutter-sm: 22px;
