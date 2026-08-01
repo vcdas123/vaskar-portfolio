@@ -136,3 +136,48 @@ describe('error responses', () => {
     expect(serialized).not.toMatch(/postgres/i);
   });
 });
+
+describe('CORS policy', () => {
+  it('accepts a same-origin POST, which is what a browser form actually sends', async () => {
+    // Browsers attach `Origin` to POST even when the request is same-origin. The
+    // deployment serves the site and the API from one host, so rejecting an origin
+    // that matches the request host would break every real submission — and a
+    // configured allowlist cannot help, because each Vercel preview deployment has
+    // a different hostname.
+    const response = await request(testApp())
+      .post('/api/contact')
+      .set('Host', 'portfolio.example.com')
+      .set('Origin', 'https://portfolio.example.com')
+      .send(validPayload)
+      .expect(201);
+
+    expect(contactResponseSchema.parse(expectData(response.body)).status).toBe('received');
+  });
+
+  it('honours the public hostname when running behind a proxy', async () => {
+    const response = await request(testApp())
+      .post('/api/contact')
+      .set('X-Forwarded-Host', 'portfolio.example.com')
+      .set('Origin', 'https://portfolio.example.com')
+      .send(validPayload)
+      .expect(201);
+
+    expect(response.body).toHaveProperty('ok', true);
+  });
+
+  it('rejects a foreign origin with a typed 403', async () => {
+    const response = await request(testApp())
+      .post('/api/contact')
+      .set('Host', 'portfolio.example.com')
+      .set('Origin', 'https://attacker.example')
+      .send(validPayload)
+      .expect(403);
+
+    expect(expectError(response.body).code).toBe('FORBIDDEN_ORIGIN');
+    expect(await prisma.contactSubmission.count()).toBe(0);
+  });
+
+  it('still accepts requests with no Origin at all (curl, server-to-server)', async () => {
+    await request(testApp()).post('/api/contact').send(validPayload).expect(201);
+  });
+});

@@ -16,6 +16,7 @@
 /* --- Panels, cards and consoles ------------------------------------------- */
 
 .statusbox,
+.runtime-console,
 .skill-console,
 .case,
 .cs-terminal,
@@ -28,6 +29,7 @@
 
 /* Containers whose children paint to the edge must clip. */
 .summary,
+.runtime-console,
 .skill-console,
 .contact-links,
 .cs-terminal {
