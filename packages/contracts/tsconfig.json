@@ -2,7 +2,12 @@
   "extends": "@portfolio/tsconfig/node.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    // The shared node config requests `types: ["node"]`, but this package is pure
+    // Zod schemas with no Node globals. Clearing it removes the @types/node
+    // requirement, so building the contracts never depends on dev dependencies
+    // being present.
+    "types": []
   },
   "include": ["src"]
 }
