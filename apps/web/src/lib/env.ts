@@ -46,4 +46,48 @@ if (!parsed.success) {
   );
 }
 
-export const clientEnv = Object.freeze(parsed.data);
+/**
+ * Safety net for a base URL that points at localhost while the page itself is
+ * served from somewhere else.
+ *
+ * That combination is always a misconfiguration — a deployed site cannot reach a
+ * developer's machine — and its symptom is a confusing CORS error rather than an
+ * obvious "wrong URL". Rather than fail the page, fall back to the same-origin
+ * `/api` (which is how the deployment is wired) and say so loudly in the console.
+ */
+const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]', '0.0.0.0']);
+
+const resolveApiBaseUrl = (configured: string): string => {
+  if (typeof window === 'undefined' || configured.startsWith('/')) {
+    return configured;
+  }
+
+  let target: URL;
+  try {
+    target = new URL(configured);
+  } catch {
+    return configured;
+  }
+
+  const pageIsLocal = LOCAL_HOSTS.has(window.location.hostname);
+  const targetIsLocal = LOCAL_HOSTS.has(target.hostname);
+
+  if (targetIsLocal && !pageIsLocal) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `[portfolio] VITE_API_BASE_URL is "${configured}", which points at localhost, ` +
+        `but this page is served from ${window.location.origin}. ` +
+        `Falling back to the same-origin "${PROD_DEFAULT_API_BASE_URL}". ` +
+        `Set VITE_API_BASE_URL to "${PROD_DEFAULT_API_BASE_URL}" in your deployment ` +
+        `and redeploy — it is inlined at build time, so a change needs a rebuild.`,
+    );
+    return PROD_DEFAULT_API_BASE_URL;
+  }
+
+  return configured;
+};
+
+export const clientEnv = Object.freeze({
+  ...parsed.data,
+  VITE_API_BASE_URL: resolveApiBaseUrl(parsed.data.VITE_API_BASE_URL),
+});
