@@ -25,7 +25,7 @@ describe('GET /api/projects/:slug', () => {
     expect(data.title).toBe('Discovery Hub');
     expect(data.file).toBe('discovery-hub.ts');
     expect(data.tech).toEqual(['Webpack 5', 'Redux', 'MUI']);
-    expect(data.logs[0]).toBe('host shell initialized');
+    expect(data.cardDescription).toMatch(/Runtime-loaded remotes/);
     expect(data.links.some((link) => link.primary)).toBe(true);
   });
 

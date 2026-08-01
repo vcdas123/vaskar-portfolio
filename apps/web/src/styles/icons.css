@@ -22,13 +22,12 @@
  * `.ct-restart` is matched only in its visible state: it defaults to
  * `display: none` until the first answer is recorded, and an unconditional
  * `display: inline-flex` here would override that and reveal it immediately. */
-.run,
 .cs-close,
 .ct-submit,
 .ct-restart.is-visible,
 .boot-retry,
-.tab,
 .project-actions a,
+.project-actions button,
 .cs-actions a {
   display: inline-flex;
   align-items: center;
@@ -41,29 +40,7 @@
   gap: 7px;
 }
 
-/* `.run` is `display: inline-block` in the reference; inline-flex keeps the same
-   box while letting the icon and label align on one row. */
-
-.tab {
-  /* The strip aligns tabs to the bottom, so the flex box must not stretch. */
-  align-self: flex-end;
-}
-
-/* Explorer rows: icon, then filename. */
-.tree li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.tree-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* The build log and skill lists put a check in front of each line. */
-.log .ok .icon,
+/* Skill lists put a check in front of each line. */
 .skill-group li .icon {
   vertical-align: -0.22em;
 }

@@ -54,15 +54,21 @@ describe('GET /api/portfolio', () => {
       'LinkedIn',
       'GitHub',
     ]);
+  });
 
-    // Architecture entries are ordered, because they are rendered as source lines.
-    const cachiva = data.projects[0];
-    expect(cachiva?.architecture.map((entry) => entry.key)).toEqual([
-      'client',
-      'service',
-      'data',
-      'security',
-    ]);
+  it('no longer carries the workspace-era project fields', async () => {
+    const response = await request(testApp()).get('/api/portfolio').expect(200);
+    const data = portfolioPayloadSchema.parse(expectData(response.body));
+    const raw = JSON.parse(JSON.stringify(data.projects[0])) as Record<string, unknown>;
+
+    // The runtime section replaced the IDE workspace, so these are gone from the
+    // schema, the database and the payload.
+    for (const field of ['description', 'architecture', 'logs', 'metric', 'outcome']) {
+      expect(raw).not.toHaveProperty(field);
+    }
+    expect(Object.keys(raw).sort()).toEqual(
+      ['cardDescription', 'command', 'file', 'links', 'slug', 'tech', 'title', 'type'].sort(),
+    );
   });
 
   it('exposes careerStart so the client can derive experience', async () => {

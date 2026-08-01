@@ -8,8 +8,6 @@ const byPosition = { position: 'asc' } as const;
 export const projectInclude = {
   tech: { orderBy: byPosition },
   links: { orderBy: byPosition },
-  architecture: { orderBy: byPosition },
-  logs: { orderBy: byPosition },
 } as const;
 
 /**

@@ -6,17 +6,9 @@ export const projectFixture: Project = {
   title: 'Cachiva',
   file: 'cachiva.ts',
   type: 'Knowledge system',
-  description: 'A full-stack developer knowledge platform.',
   cardDescription: 'Structured developer knowledge.',
   command: '$ portfolio open cachiva --case-study',
   tech: ['React', 'Node', 'Prisma'],
-  architecture: [
-    { key: 'client', value: 'React + TypeScript' },
-    { key: 'security', value: 'RBAC(public, private)' },
-  ],
-  logs: ['relational schema compiled', 'JWT guards enabled'],
-  metric: '2×',
-  outcome: 'Focused user experiences',
   links: [
     { label: 'Live demo', url: 'https://cachiva.vercel.app/', primary: true },
     { label: 'API docs', url: 'https://cachiva-backend.vercel.app/', primary: false },
@@ -29,8 +21,6 @@ export const secondProjectFixture: Project = {
   title: 'MyHistory',
   file: 'myhistory.ts',
   type: 'Private records system',
-  metric: '3',
-  outcome: 'Connected record views',
   links: [{ label: 'Live demo', url: 'https://myhistory-phi.vercel.app/', primary: true }],
 };
 

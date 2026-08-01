@@ -31,14 +31,9 @@ interface ReferencePortfolioData {
     title: string;
     file: string;
     type: string;
-    description: string;
     cardDescription: string;
     command: string;
     tech: string[];
-    architecture: Record<string, string>;
-    logs: string[];
-    metric: string;
-    outcome: string;
     links: Array<{ label: string; url: string; primary: boolean }>;
   }>;
   skills: Array<{ group: string; items: string[] }>;
@@ -55,19 +50,19 @@ interface ReferencePortfolioData {
 
 type ReferenceCaseStudyData = Record<string, Omit<CaseStudy, 'slug'> & { flow: string[] }>;
 
+/**
+ * The reference page's embedded JSON still declares the workspace-era fields even
+ * though its markup no longer renders them, so they are filled with harmless
+ * placeholders. The API stopped serving them when the workspace was removed.
+ */
 const toReferenceProject = (project: Project): ReferencePortfolioData['projects'][number] => ({
   slug: project.slug,
   title: project.title,
   file: project.file,
   type: project.type,
-  description: project.description,
   cardDescription: project.cardDescription,
   command: project.command,
   tech: project.tech,
-  architecture: Object.fromEntries(project.architecture.map((entry) => [entry.key, entry.value])),
-  logs: project.logs,
-  metric: project.metric,
-  outcome: project.outcome,
   links: project.links,
 });
 

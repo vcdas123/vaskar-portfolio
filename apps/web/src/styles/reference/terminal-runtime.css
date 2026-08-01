@@ -8,28 +8,15 @@
  * declared here with the same computed values the inline styles produced.
  */
 
-.case-file {
-  display: none;
-  padding: 30px;
-  min-height: 650px;
-}
 
-.case-file.open {
-  display: block;
-}
 
-.case-file .cs-head {
-  grid-template-columns: 1fr auto;
-  margin-bottom: 28px;
-}
 
-.case-file .cs-head h2 {
-  font-size: clamp(38px, 5vw, 66px);
-}
 
-.case-file .cs-kicker {
-  grid-column: 1 / -1;
-}
+
+
+
+
+
 
 .cs-loader {
   max-width: 720px;
@@ -189,15 +176,9 @@
   margin-top: 16px;
 }
 
-.output.hidden {
-  display: none;
-}
 
-.tabs .case-tab {
-  color: var(--portfolio-primary);
-  border-top-color: var(--portfolio-primary);
-  background: var(--portfolio-surface-tab-active);
-}
+
+
 
 .foot {
   justify-content: space-between;
@@ -219,53 +200,40 @@
 }
 
 @media (max-width: 600px) {
-  .case-file {
-    padding: 20px 16px;
-  }
-
-  .case-file .cs-head {
-    display: grid;
-    grid-template-columns: 1fr auto;
-  }
-
-  .case-file .cs-head h2 {
-    grid-column: 1 / -1;
-  }
-
   .cs-loader {
-    margin: 38px auto;
-    padding: 20px;
-    font-size: 11px;
-  }
+      margin: 38px auto;
+      padding: 20px;
+      font-size: 11px;
+    }
 
-  .ct-body {
-    padding: 20px 16px;
-  }
+    .ct-body {
+      padding: 20px 16px;
+    }
 
-  .ct-prompt {
-    align-items: stretch;
-    flex-direction: column;
-  }
+    .ct-prompt {
+      align-items: stretch;
+      flex-direction: column;
+    }
 
-  .ct-input {
-    width: 100%;
-  }
+    .ct-input {
+      width: 100%;
+    }
 
-  .ct-restart {
-    margin-left: 0;
-  }
+    .ct-restart {
+      margin-left: 0;
+    }
 
-  .foot {
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-  }
+    .foot {
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+    }
 
-  .foot span,
+    .foot span,
   .foot span:nth-child(2),
   .foot span:nth-child(3),
   .foot a {
-    width: 100%;
-    text-align: center;
-  }
+      width: 100%;
+      text-align: center;
+    }
 }

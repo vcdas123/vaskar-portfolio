@@ -105,6 +105,21 @@
   color: var(--portfolio-primary);
 }
 
+/* The card's CASE STUDY trigger — a native button beside the link pills. */
+.project-actions button {
+  border: 1px solid var(--portfolio-border);
+  background: transparent;
+  padding: 10px 12px;
+  color: var(--portfolio-text);
+  font: 500 10px var(--portfolio-font-mono);
+  cursor: pointer;
+}
+
+.project-actions button:hover {
+  border-color: var(--portfolio-primary);
+  color: var(--portfolio-primary);
+}
+
 .project-actions .primary {
   background: var(--portfolio-primary);
   border-color: var(--portfolio-primary);
@@ -208,31 +223,21 @@
 }
 
 .windowbar,
-.side-title,
-.output-side h3,
-.resultbox small,
 .section-head small,
 .history-label,
 .case .head {
   font-size: 11px;
 }
 
-.sidebar {
-  font-size: 12px;
-}
 
-.side-foot,
+
 .case footer {
   font-size: 10px;
 }
 
-.log {
-  font-size: 11px;
-}
 
-.resultbox span {
-  font-size: 11px;
-}
+
+
 
 .path {
   font-size: 11px;
@@ -259,124 +264,121 @@
 
 @media (max-width: 1000px) {
   .cases.three {
-    grid-template-columns: 1fr 1fr;
-  }
+      grid-template-columns: 1fr 1fr;
+    }
 
-  .education,
+    .education,
   .skills-head {
-    grid-template-columns: var(--portfolio-rail-md) 1fr;
-  }
+      grid-template-columns: var(--portfolio-rail-md) 1fr;
+    }
 
-  .contact-links {
-    grid-template-columns: 1fr 1fr;
-  }
+    .contact-links {
+      grid-template-columns: 1fr 1fr;
+    }
 
-  .skill-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+    .skill-grid {
+      grid-template-columns: 1fr 1fr;
+    }
 
-  .skill-group:nth-child(2) {
-    border-right: 0;
-  }
+    .skill-group:nth-child(2) {
+      border-right: 0;
+    }
 
-  .skill-group:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--portfolio-border);
-  }
+    .skill-group:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--portfolio-border);
+    }
 }
 
 @media (max-width: 600px) {
   .cases.three {
-    grid-template-columns: 1fr;
-  }
+      grid-template-columns: 1fr;
+    }
 
-  .education {
-    display: block;
-    padding: 60px 0;
-  }
+    .education {
+      display: block;
+      padding: 60px 0;
+    }
 
-  .education-label {
-    margin-bottom: 24px;
-  }
+    .education-label {
+      margin-bottom: 24px;
+    }
 
-  .degree {
-    grid-template-columns: 1fr;
-  }
+    .degree {
+      grid-template-columns: 1fr;
+    }
 
-  .contact-links {
-    grid-template-columns: 1fr;
-    margin-top: 38px;
-  }
+    .contact-links {
+      grid-template-columns: 1fr;
+      margin-top: 38px;
+    }
 
-  .contact {
-    overflow: hidden;
-  }
+    .contact {
+      overflow: hidden;
+    }
 
-  .contact h2 {
-    font-size: clamp(48px, 17vw, 70px);
-    overflow-wrap: anywhere;
-  }
+    .contact h2 {
+      font-size: clamp(48px, 17vw, 70px);
+      overflow-wrap: anywhere;
+    }
 
-  .foot {
-    width: 100%;
-    gap: 10px;
-    align-items: center;
-    text-align: center;
-  }
+    .foot {
+      width: 100%;
+      gap: 10px;
+      align-items: center;
+      text-align: center;
+    }
 
-  .foot span,
+    .foot span,
   .foot a {
-    display: block;
-    width: 100%;
-    min-width: 0;
-    text-align: center;
-    overflow-wrap: anywhere;
-  }
+      display: block;
+      width: 100%;
+      min-width: 0;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
 
-  .skills {
-    padding: 65px 0;
-  }
+    .skills {
+      padding: 65px 0;
+    }
 
-  .skills-head {
-    display: block;
-  }
+    .skills-head {
+      display: block;
+    }
 
-  .skills-head h2 {
-    margin-top: 14px;
-  }
+    .skills-head h2 {
+      margin-top: 14px;
+    }
 
-  .skill-grid {
-    grid-template-columns: 1fr;
-  }
+    .skill-grid {
+      grid-template-columns: 1fr;
+    }
 
-  .skill-group {
-    border-right: 0;
-    border-bottom: 1px solid var(--portfolio-border);
-  }
+    .skill-group {
+      border-right: 0;
+      border-bottom: 1px solid var(--portfolio-border);
+    }
 
-  .skill-group:last-child {
-    border-bottom: 0;
-  }
+    .skill-group:last-child {
+      border-bottom: 0;
+    }
 
-  .skill-top {
-    align-items: flex-start;
-    height: auto;
-    padding: 13px 15px;
-    gap: 8px;
-    flex-direction: column;
-  }
+    .skill-top {
+      align-items: flex-start;
+      height: auto;
+      padding: 13px 15px;
+      gap: 8px;
+      flex-direction: column;
+    }
 
-  .terminal-body,
-  .sidebar {
-    font-size: 11px;
-  }
+    .terminal-body {
+      font-size: 11px;
+    }
 
-  .log,
-  .resultbox span,
-  .path {
-    font-size: 10px;
-  }
+    .path {
+      font-size: 10px;
+    }
 
-  .bar {
-    grid-template-columns: 88px 1fr 34px;
-  }
+    .bar {
+      grid-template-columns: 88px 1fr 34px;
+    }
 }

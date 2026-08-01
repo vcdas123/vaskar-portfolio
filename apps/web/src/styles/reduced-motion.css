@@ -32,7 +32,7 @@
   }
 
   /* The indeterminate compile bars have no meaningful resting position, so they
-     become a static filled track rather than a stalled sliver. */
+       become a static filled track rather than a stalled sliver. */
   .cs-loader-track span,
   .boot-track span {
     width: 100%;

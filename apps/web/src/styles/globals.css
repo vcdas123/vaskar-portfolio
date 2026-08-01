@@ -18,6 +18,8 @@
 @import './reference/core.css';
 @import './reference/sections.css';
 @import './reference/case-study.css';
+@import './reference/runtime.css';
+@import './reference/case-dialog.css';
 @import './reference/terminal-runtime.css';
 @import './reference/status.css';
 

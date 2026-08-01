@@ -1,21 +1,19 @@
 import { configureStore, type Middleware } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { baseApi } from '../services/api';
-import { projectsSlice } from '../features/projects/projectsSlice';
 import { caseStudiesSlice } from '../features/case-studies/caseStudiesSlice';
 import { contactSlice } from '../features/contact/contactSlice';
 
 const rootReducer = {
   [baseApi.reducerPath]: baseApi.reducer,
-  [projectsSlice.reducerPath]: projectsSlice.reducer,
   [caseStudiesSlice.reducerPath]: caseStudiesSlice.reducer,
   [contactSlice.reducerPath]: contactSlice.reducer,
 };
 
 /**
- * Redux holds only cross-component application state — selected project, open
- * case-study file, compile state and contact-session progress. Transient input
- * text stays local to the field that owns it.
+ * Redux holds only cross-component application state — the open case study, its
+ * compile state, and contact-session progress. Transient input text stays local to
+ * the field that owns it.
  */
 export const createStore = (extraMiddleware: Middleware[] = []) =>
   configureStore({

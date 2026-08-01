@@ -59,14 +59,9 @@ const rawSeedSchema = z.object({
         title: displayString,
         file: displayString,
         type: displayString,
-        description: displayString,
         cardDescription: displayString,
         command: displayString,
         tech: z.array(displayString).min(1),
-        architecture: z.record(displayString),
-        logs: z.array(displayString).min(1),
-        metric: displayString,
-        outcome: displayString,
         links: z
           .array(z.object({ label: displayString, url: linkUrlSchema, primary: z.boolean() }))
           .min(1),

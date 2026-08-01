@@ -4,14 +4,15 @@ import type { Page } from '@playwright/test';
 export const gotoPortfolio = async (page: Page, path = '/'): Promise<void> => {
   await page.goto(path, { waitUntil: 'load' });
   await page.waitForSelector('main.shell', { timeout: 20_000 });
-  await page.waitForSelector('.workspace .tree li.indent.active', { timeout: 20_000 });
+  // The cards are the last data-driven block to render.
+  await page.waitForSelector('.cases.three .case', { timeout: 20_000 });
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(400);
 };
 
-/** Opens `case-study.md` and waits for the compiled document. */
+/** Opens the first project's case study and waits for the compiled document. */
 export const openCaseStudy = async (page: Page): Promise<void> => {
-  await page.click('button.run');
-  await page.waitForSelector('button.cs-close', { timeout: 20_000 });
+  await page.locator('.project-actions button').first().click();
+  await page.waitForSelector('.md-doc', { timeout: 20_000 });
   await page.waitForTimeout(400);
 };

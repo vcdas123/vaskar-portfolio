@@ -16,10 +16,8 @@
 /* --- Panels, cards and consoles ------------------------------------------- */
 
 .statusbox,
-.workspace,
 .skill-console,
 .case,
-.resultbox,
 .cs-terminal,
 .cs-loader,
 .contact-terminal,
@@ -30,7 +28,6 @@
 
 /* Containers whose children paint to the edge must clip. */
 .summary,
-.workspace,
 .skill-console,
 .contact-links,
 .cs-terminal {
@@ -40,33 +37,29 @@
 
 /* --- Controls -------------------------------------------------------------- */
 
-.run,
 .cs-close,
 .ct-submit,
 .ct-restart,
 .boot-retry,
 .project-actions a,
 .project-actions span,
+.project-actions button,
 .cs-actions a,
-.flow-node,
-.tree li {
+.flow-node {
   border-radius: var(--portfolio-radius-sm);
-}
-
-/* Tabs are rounded at the top only — their bottom edge meets the tab strip. */
-.tab {
-  border-top-left-radius: var(--portfolio-radius-sm);
-  border-top-right-radius: var(--portfolio-radius-sm);
-}
-
-/* The active-tab indicator has to follow the tab's own top corners. */
-.tab-indicator {
-  border-top-left-radius: var(--portfolio-radius-sm);
-  border-top-right-radius: var(--portfolio-radius-sm);
 }
 
 /* The text input is underlined rather than boxed, so only its lower corners
    would ever show; leaving it square keeps the underline flush. */
+
+/* The case-study dialog is a floating panel. */
+.case-dialog {
+  border-radius: var(--portfolio-radius-md);
+}
+
+.case-dialog-close {
+  border-radius: var(--portfolio-radius-sm);
+}
 
 /* --- Bars and tracks ------------------------------------------------------- */
 

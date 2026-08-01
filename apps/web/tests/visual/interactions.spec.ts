@@ -3,107 +3,43 @@ import { COMPILE_DURATION_MS } from '../../src/features/case-studies/caseStudies
 import { gotoPortfolio, openCaseStudy } from './helpers';
 
 /** Every behaviour the conversion brief requires preserved. */
-test.describe('project explorer', () => {
-  test('contains only the three project files', async ({ page }) => {
+test.describe('engineering runtime', () => {
+  test('renders the four operating-model stages with arrows between them', async ({ page }) => {
     await gotoPortfolio(page);
-    const files = page.locator('.tree li.indent');
-    await expect(files).toHaveCount(3);
-    await expect(files).toHaveText([/cachiva\.ts/, /discovery-hub\.ts/, /myhistory\.ts/]);
+
+    await expect(page.locator('.runtime-flow article')).toHaveCount(4);
+    await expect(page.locator('.runtime-flow article h3')).toHaveText([
+      'UNDERSTAND',
+      'ARCHITECT',
+      'SHIP',
+      'MEASURE',
+    ]);
+    // Three separators for four stages.
+    await expect(page.locator('.runtime-flow > i')).toHaveCount(3);
+    await expect(page.locator('.runtime-command')).toContainText('portfolio execute');
+    await expect(page.locator('.runtime-log')).toContainText('measurable performance');
   });
 
-  test('selecting a project updates tab, description, architecture, log, metric and outcome', async ({
-    page,
-  }) => {
+  test('the IDE workspace is gone', async ({ page }) => {
     await gotoPortfolio(page);
-    await expect(page.locator('.code-title')).toContainText('Cachiva');
-
-    await page.click('.tree li.indent:nth-child(4) .tree-button');
-
-    await expect(page.locator('.code-title')).toContainText('MyHistory');
-    await expect(page.locator('.tab.active')).toHaveText(/myhistory\.ts/);
-    await expect(page.locator('.desc')).toContainText('local-first private records archive');
-    await expect(page.locator('.script')).toContainText('React + Mantine');
-    await expect(page.locator('.log')).toContainText('file catalog indexed');
-    await expect(page.locator('.resultbox b')).toHaveText('3');
-    await expect(page.locator('.resultbox span')).toHaveText('CONNECTED RECORD VIEWS');
-    await expect(page.locator('.tree li.indent.active')).toHaveText(/myhistory\.ts/);
-  });
-
-  test('project selection is keyboard operable', async ({ page }) => {
-    await gotoPortfolio(page);
-    const target = page.locator('.tree li.indent:nth-child(3) .tree-button');
-    await target.focus();
-    await page.keyboard.press('Enter');
-    await expect(page.locator('.code-title')).toContainText('Discovery Hub');
+    for (const selector of ['.workspace', '.sidebar', '.tabs', '.output', '.resultbox']) {
+      await expect(page.locator(selector)).toHaveCount(0);
+    }
   });
 });
 
-test.describe('case study', () => {
-  test('opens case-study.md in the workspace without scrolling the page', async ({ page }) => {
+test.describe('project cards', () => {
+  test('list every project with its type, command and technologies', async ({ page }) => {
     await gotoPortfolio(page);
-    // Bring the button into view first, then confirm the click itself does not move us.
-    await page.locator('button.run').scrollIntoViewIfNeeded();
-    const before = await page.evaluate(() => window.scrollY);
+    const cards = page.locator('.cases.three .case');
 
-    await page.click('button.run');
-    await expect(page.locator('.case-file.open')).toBeVisible();
-    await expect(page.locator('.tabs .case-tab')).toHaveText(/case-study\.md/);
-    await expect(page.locator('.output')).toHaveClass(/hidden/);
-
-    await expect(page.locator('button.cs-close')).toBeVisible();
-    expect(await page.evaluate(() => window.scrollY)).toBe(before);
+    await expect(cards).toHaveCount(3);
+    await expect(cards.nth(0)).toContainText('PACKAGE / KNOWLEDGE SYSTEM');
+    await expect(cards.nth(0).locator('.command')).toContainText('portfolio open cachiva');
+    await expect(cards.nth(0).locator('footer')).toContainText('React · Node · Prisma');
   });
 
-  test('shows the compile state before the document', async ({ page }) => {
-    await gotoPortfolio(page);
-    await page.click('button.run');
-    await expect(page.locator('.cs-loader')).toBeVisible();
-    await expect(page.locator('button.run')).toHaveText(/COMPILING CASE STUDY/);
-    await expect(page.locator('.md-doc')).toBeVisible({ timeout: 10_000 });
-    await expect(page.locator('button.run')).toHaveText(/CASE STUDY OPEN/);
-  });
-
-  test('closing during compilation cancels the pending transition', async ({ page }) => {
-    await gotoPortfolio(page);
-    await page.click('button.run');
-    await expect(page.locator('.cs-loader')).toBeVisible();
-
-    // Close well inside the compile window, then wait past it: the document must
-    // never appear, i.e. the pending timer was cancelled rather than deferred.
-    await page.click('.tabs .case-tab');
-    await page.waitForTimeout(COMPILE_DURATION_MS + 500);
-
-    await expect(page.locator('.case-file')).toHaveCount(0);
-    await expect(page.locator('.md-doc')).toHaveCount(0);
-    await expect(page.locator('.output')).not.toHaveClass(/hidden/);
-    await expect(page.locator('button.run')).toHaveText(/RUN CASE STUDY/);
-  });
-
-  test('selecting another project dismisses an open case study', async ({ page }) => {
-    await gotoPortfolio(page);
-    await openCaseStudy(page);
-    await page.click('.tree li.indent:nth-child(3) .tree-button');
-
-    await expect(page.locator('.case-file')).toHaveCount(0);
-    await expect(page.locator('.tabs .case-tab')).toHaveCount(0);
-    await expect(page.locator('.code-title')).toContainText('Discovery Hub');
-  });
-
-  test('renders the study as a numbered Markdown source view', async ({ page }) => {
-    await gotoPortfolio(page);
-    await openCaseStudy(page);
-
-    await expect(page.locator('.md-line-h1')).toHaveCount(1);
-    await expect(page.locator('.md-line-h2')).toHaveCount(7);
-    await expect(page.locator('.md-line-bullet').first()).toBeVisible();
-    await expect(page.locator('.md-line-flow .flow-node')).toHaveCount(5);
-    // The gutter numbers the source lines from 1.
-    await expect(page.locator('.md-gutter').first()).toHaveText('1');
-  });
-});
-
-test.describe('project links', () => {
-  test('live demo, API docs and source links are functional', async ({ page }) => {
+  test('live demo, API doc and source links are functional', async ({ page }) => {
     await gotoPortfolio(page);
     const cards = page.locator('.cases.three .case');
 
@@ -124,6 +60,89 @@ test.describe('project links', () => {
       await expect(link).toHaveAttribute('href', /^https:\/\//);
     }
   });
+
+  test('each card offers a case-study trigger', async ({ page }) => {
+    await gotoPortfolio(page);
+    await expect(page.locator('.project-actions button')).toHaveCount(3);
+  });
+});
+
+test.describe('case study dialog', () => {
+  test('opens as a modal without scrolling the page', async ({ page }) => {
+    await gotoPortfolio(page);
+    await page.locator('.project-actions button').first().scrollIntoViewIfNeeded();
+    const before = await page.evaluate(() => window.scrollY);
+
+    await page.locator('.project-actions button').first().click();
+
+    // A native modal dialog traps focus and makes the rest of the page inert.
+    await expect(page.locator('.case-dialog')).toBeVisible();
+    expect(
+      await page.evaluate(() => document.querySelector('.case-dialog')?.matches(':modal')),
+    ).toBe(true);
+    expect(await page.evaluate(() => window.scrollY)).toBe(before);
+  });
+
+  test('shows the compile state before the document', async ({ page }) => {
+    await gotoPortfolio(page);
+    await page.locator('.project-actions button').first().click();
+
+    await expect(page.locator('.cs-loader')).toBeVisible();
+    await expect(page.locator('.md-doc')).toBeVisible({ timeout: 15_000 });
+  });
+
+  test('renders the study as a numbered Markdown source view', async ({ page }) => {
+    await gotoPortfolio(page);
+    await openCaseStudy(page);
+
+    await expect(page.locator('.md-line-h1')).toHaveCount(1);
+    await expect(page.locator('.md-line-h2')).toHaveCount(7);
+    await expect(page.locator('.md-line-bullet').first()).toBeVisible();
+    await expect(page.locator('.md-line-flow .flow-node')).toHaveCount(5);
+    await expect(page.locator('.md-gutter').first()).toHaveText('1');
+  });
+
+  test('closing during compilation cancels the pending transition', async ({ page }) => {
+    await gotoPortfolio(page);
+    await page.locator('.project-actions button').first().click();
+    await expect(page.locator('.cs-loader')).toBeVisible();
+
+    // Close inside the compile window, then wait past it: the document must never
+    // appear, i.e. the pending timer was cancelled rather than deferred.
+    await page.locator('.case-dialog-close').click();
+    await page.waitForTimeout(COMPILE_DURATION_MS + 500);
+
+    await expect(page.locator('.md-doc')).toHaveCount(0);
+    expect(
+      await page.evaluate(
+        () => document.querySelector<HTMLDialogElement>('.case-dialog')?.open ?? false,
+      ),
+    ).toBe(false);
+  });
+
+  test('Escape closes the dialog', async ({ page }) => {
+    await gotoPortfolio(page);
+    await openCaseStudy(page);
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator('.case-dialog')).toBeHidden();
+  });
+
+  test('the close button dismisses it', async ({ page }) => {
+    await gotoPortfolio(page);
+    await openCaseStudy(page);
+
+    await page.locator('.case-dialog-close').click();
+    await expect(page.locator('.case-dialog')).toBeHidden();
+  });
+
+  test('a project route deep-links straight to its case study', async ({ page }) => {
+    await gotoPortfolio(page, '/projects/myhistory');
+
+    await expect(page.locator('.case-dialog')).toBeVisible();
+    await expect(page.locator('.md-doc')).toBeVisible({ timeout: 15_000 });
+    await expect(page.locator('.md-line-h1')).toContainText('MyHistory');
+  });
 });
 
 test.describe('scroll behaviour', () => {
@@ -135,8 +154,6 @@ test.describe('scroll behaviour', () => {
 
   test('reloading a project route does not jump to the contact section', async ({ page }) => {
     await gotoPortfolio(page, '/projects/myhistory');
-    await expect(page.locator('.code-title')).toContainText('MyHistory');
-
     await page.reload({ waitUntil: 'load' });
     await page.waitForSelector('main.shell');
     await page.waitForTimeout(500);
@@ -166,7 +183,6 @@ test.describe('contact questionnaire', () => {
     const restart = page.locator('.ct-restart');
 
     await expect(prompt).toHaveText('name ❯');
-    // Restart is offered only after the first answer.
     await expect(restart).not.toHaveClass(/is-visible/);
 
     await input.fill('Playwright Tester');
@@ -211,7 +227,6 @@ test.describe('contact questionnaire', () => {
     await expect(page.locator('.ct-prompt label')).toHaveText('name ❯');
     await expect(page.locator('.ct-log')).not.toContainText('name: Someone');
     await expect(page.locator('.ct-restart')).not.toHaveClass(/is-visible/);
-    // No reload happened, so the sentinel survives.
     expect(await page.evaluate(() => (window as unknown as { __stayed?: boolean }).__stayed)).toBe(
       true,
     );

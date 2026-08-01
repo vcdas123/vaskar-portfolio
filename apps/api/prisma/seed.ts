@@ -23,8 +23,6 @@ const clearContent = async (): Promise<void> => {
     prisma.caseStudyFlowNode.deleteMany(),
     prisma.caseStudyListItem.deleteMany(),
     prisma.caseStudy.deleteMany(),
-    prisma.buildLog.deleteMany(),
-    prisma.architectureEntry.deleteMany(),
     prisma.projectLink.deleteMany(),
     prisma.projectTech.deleteMany(),
     prisma.project.deleteMany(),
@@ -107,11 +105,8 @@ const seedProjects = async (seed: RawSeed): Promise<void> => {
         title: project.title,
         file: project.file,
         type: project.type,
-        description: project.description,
         cardDescription: project.cardDescription,
         command: project.command,
-        metric: project.metric,
-        outcome: project.outcome,
         position,
         tech: {
           create: project.tech.map((label, index) => ({ label, position: index })),
@@ -123,17 +118,6 @@ const seedProjects = async (seed: RawSeed): Promise<void> => {
             primary: link.primary,
             position: index,
           })),
-        },
-        architecture: {
-          // Object key order in the dataset is the rendered line order.
-          create: Object.entries(project.architecture).map(([key, value], index) => ({
-            key,
-            value,
-            position: index,
-          })),
-        },
-        logs: {
-          create: project.logs.map((message, index) => ({ message, position: index })),
         },
         ...(study
           ? {

@@ -84,18 +84,13 @@ model Project {
   title           String
   file            String
   type            String
-  description     String
   cardDescription String
   command         String
-  metric          String
-  outcome         String
   position        Int
 
-  tech         ProjectTech[]
-  links        ProjectLink[]
-  architecture ArchitectureEntry[]
-  logs         BuildLog[]
-  caseStudy    CaseStudy?
+  tech      ProjectTech[]
+  links     ProjectLink[]
+  caseStudy CaseStudy?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -126,31 +121,6 @@ model ProjectLink {
 
   @@unique([projectId, position])
   @@map("project_links")
-}
-
-/// One `key: "value"` line of the rendered `const architecture = { … }` block.
-model ArchitectureEntry {
-  id        String  @id @default(uuid())
-  projectId String
-  key       String
-  value     String
-  position  Int
-  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-
-  @@unique([projectId, position])
-  @@map("architecture_entries")
-}
-
-/// One line of a project's `OUTPUT / BUILD LOG` panel.
-model BuildLog {
-  id        String  @id @default(uuid())
-  projectId String
-  message   String
-  position  Int
-  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-
-  @@unique([projectId, position])
-  @@map("build_logs")
 }
 
 model CaseStudy {

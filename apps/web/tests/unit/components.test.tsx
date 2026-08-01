@@ -1,206 +1,19 @@
 import { describe, expect, it, vi } from 'vitest';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ProjectExplorer } from '../../src/features/projects/ProjectExplorer';
-import { ProjectTabs } from '../../src/features/projects/ProjectTabs';
-import { ProjectOutput } from '../../src/features/projects/ProjectOutput';
 import { ProjectCard } from '../../src/features/projects/ProjectCard';
 import { HeroSection } from '../../src/features/portfolio/HeroSection';
+import { RuntimeSection } from '../../src/features/portfolio/RuntimeSection';
 import { TopBar } from '../../src/components/layout/TopBar';
 import { PageFooter } from '../../src/components/layout/PageFooter';
 import { renderWithProviders } from './render';
 import { portfolioFixture, projectFixture, secondProjectFixture } from './fixtures';
 
-describe('ProjectExplorer', () => {
-  const projects = [projectFixture, secondProjectFixture];
-
-  it('lists the project files as native buttons', () => {
-    renderWithProviders(
-      <ProjectExplorer
-        projects={projects}
-        selectedSlug="cachiva"
-        location="Kolkata, India"
-        onSelect={vi.fn()}
-      />,
-    );
-
-    // Native buttons are what make the explorer keyboard operable.
-    expect(screen.getByRole('button', { name: /cachiva\.ts/ })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /myhistory\.ts/ })).toBeInTheDocument();
-    expect(screen.getByText(/LOCATION:/)).toBeInTheDocument();
-  });
-
-  it('marks the selected file with aria-current', () => {
-    renderWithProviders(
-      <ProjectExplorer
-        projects={projects}
-        selectedSlug="myhistory"
-        location="Kolkata, India"
-        onSelect={vi.fn()}
-      />,
-    );
-
-    expect(screen.getByRole('button', { name: /myhistory\.ts/ })).toHaveAttribute(
-      'aria-current',
-      'true',
-    );
-    expect(screen.getByRole('button', { name: /cachiva\.ts/ })).not.toHaveAttribute('aria-current');
-  });
-
-  it('reports selection by slug', async () => {
-    const onSelect = vi.fn();
-    renderWithProviders(
-      <ProjectExplorer
-        projects={projects}
-        selectedSlug="cachiva"
-        location="Kolkata, India"
-        onSelect={onSelect}
-      />,
-    );
-
-    await userEvent.click(screen.getByRole('button', { name: /myhistory\.ts/ }));
-    expect(onSelect).toHaveBeenCalledWith('myhistory');
-  });
-
-  it('is operable with the keyboard alone', async () => {
-    const onSelect = vi.fn();
-    renderWithProviders(
-      <ProjectExplorer
-        projects={projects}
-        selectedSlug="cachiva"
-        location="Kolkata, India"
-        onSelect={onSelect}
-      />,
-    );
-
-    screen.getByRole('button', { name: /myhistory\.ts/ }).focus();
-    await userEvent.keyboard('{Enter}');
-    expect(onSelect).toHaveBeenCalledWith('myhistory');
-  });
-});
-
-describe('ProjectTabs', () => {
-  const projects = [projectFixture, secondProjectFixture];
-
-  it('adds a case-study.md tab only while a case study is open', () => {
-    const { rerender } = renderWithProviders(
-      <ProjectTabs
-        projects={projects}
-        selectedSlug="cachiva"
-        isCaseStudyOpen={false}
-        onSelect={vi.fn()}
-        onCloseCaseStudy={vi.fn()}
-      />,
-    );
-    expect(screen.queryByRole('tab', { name: /case-study\.md/ })).not.toBeInTheDocument();
-
-    rerender(
-      <ProjectTabs
-        projects={projects}
-        selectedSlug="cachiva"
-        isCaseStudyOpen
-        onSelect={vi.fn()}
-        onCloseCaseStudy={vi.fn()}
-      />,
-    );
-    expect(screen.getByRole('tab', { name: /case-study\.md/ })).toBeInTheDocument();
-    // The case study owns the active state while it is open.
-    expect(screen.getByRole('tab', { name: /cachiva\.ts/ })).toHaveAttribute(
-      'aria-selected',
-      'false',
-    );
-  });
-
-  it('closing the case-study tab calls the close handler', async () => {
-    const onCloseCaseStudy = vi.fn();
-    renderWithProviders(
-      <ProjectTabs
-        projects={projects}
-        selectedSlug="cachiva"
-        isCaseStudyOpen
-        onSelect={vi.fn()}
-        onCloseCaseStudy={onCloseCaseStudy}
-      />,
-    );
-
-    await userEvent.click(screen.getByRole('tab', { name: /case-study\.md/ }));
-    expect(onCloseCaseStudy).toHaveBeenCalledOnce();
-  });
-});
-
-describe('ProjectOutput', () => {
-  it('renders the architecture block with every value as a quoted string', () => {
-    renderWithProviders(
-      <ProjectOutput
-        project={projectFixture}
-        compileState="closed"
-        isHidden={false}
-        onRunCaseStudy={vi.fn()}
-      />,
-    );
-
-    expect(screen.getByText(/const/)).toBeInTheDocument();
-    expect(screen.getByText('"React + TypeScript"')).toBeInTheDocument();
-    // The reference's runtime renderer quotes every value, including RBAC(...).
-    expect(screen.getByText('"RBAC(public, private)"')).toBeInTheDocument();
-  });
-
-  it('labels the run button for each compile state', () => {
-    const { rerender } = renderWithProviders(
-      <ProjectOutput
-        project={projectFixture}
-        compileState="closed"
-        isHidden={false}
-        onRunCaseStudy={vi.fn()}
-      />,
-    );
-    expect(screen.getByRole('button', { name: /RUN CASE STUDY/ })).toBeInTheDocument();
-
-    rerender(
-      <ProjectOutput
-        project={projectFixture}
-        compileState="compiling"
-        isHidden
-        onRunCaseStudy={vi.fn()}
-      />,
-    );
-    expect(screen.getByRole('button', { name: /COMPILING CASE STUDY/ })).toBeInTheDocument();
-
-    rerender(
-      <ProjectOutput
-        project={projectFixture}
-        compileState="ready"
-        isHidden
-        onRunCaseStudy={vi.fn()}
-      />,
-    );
-    expect(screen.getByRole('button', { name: /CASE STUDY OPEN/ })).toBeInTheDocument();
-  });
-
-  it('renders the build log and primary outcome, uppercased', () => {
-    const { container } = renderWithProviders(
-      <ProjectOutput
-        project={projectFixture}
-        compileState="closed"
-        isHidden={false}
-        onRunCaseStudy={vi.fn()}
-      />,
-    );
-
-    // Log lines are bare text nodes beside their ✓ marks, so assert on the panel.
-    const log = container.querySelector('.log');
-    expect(log?.textContent).toContain('relational schema compiled');
-    expect(log?.textContent).toContain('JWT guards enabled');
-    expect(log?.textContent).toContain('BUILD SUCCESSFUL');
-
-    expect(screen.getByText('2×')).toBeInTheDocument();
-    expect(screen.getByText('FOCUSED USER EXPERIENCES')).toBeInTheDocument();
-  });
-});
-
 describe('ProjectCard', () => {
   it('uppercases link labels but keeps the technology casing', () => {
-    renderWithProviders(<ProjectCard project={projectFixture} index={0} />);
+    renderWithProviders(
+      <ProjectCard project={projectFixture} index={0} onOpenCaseStudy={vi.fn()} />,
+    );
 
     expect(screen.getByRole('link', { name: /LIVE DEMO/ })).toHaveAttribute(
       'href',
@@ -212,8 +25,21 @@ describe('ProjectCard', () => {
     expect(screen.getByText('PACKAGE / KNOWLEDGE SYSTEM')).toBeInTheDocument();
   });
 
+  it('reports the slug when its case-study button is pressed', async () => {
+    const onOpenCaseStudy = vi.fn();
+    renderWithProviders(
+      <ProjectCard project={secondProjectFixture} index={1} onOpenCaseStudy={onOpenCaseStudy} />,
+    );
+
+    // The case study is reached from the card now that the workspace is gone.
+    await userEvent.click(screen.getByRole('button', { name: /CASE STUDY/ }));
+    expect(onOpenCaseStudy).toHaveBeenCalledWith('myhistory');
+  });
+
   it('opens external links safely', () => {
-    renderWithProviders(<ProjectCard project={projectFixture} index={0} />);
+    renderWithProviders(
+      <ProjectCard project={projectFixture} index={0} onOpenCaseStudy={vi.fn()} />,
+    );
     const link = screen.getByRole('link', { name: /LIVE DEMO/ });
 
     expect(link).toHaveAttribute('target', '_blank');
@@ -242,6 +68,24 @@ describe('HeroSection', () => {
 
     expect(screen.getByText('API response')).toBeInTheDocument();
     expect(screen.getByText('45%')).toBeInTheDocument();
+  });
+});
+
+describe('RuntimeSection', () => {
+  it('renders the four operating-model stages in order', () => {
+    renderWithProviders(<RuntimeSection />);
+
+    const headings = screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent);
+    expect(headings).toEqual(['UNDERSTAND', 'ARCHITECT', 'SHIP', 'MEASURE']);
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+      'From ambiguity to measurable systems.',
+    );
+  });
+
+  it('is a labelled landmark', () => {
+    const { container } = renderWithProviders(<RuntimeSection />);
+    const section = container.querySelector('section.runtime');
+    expect(section).toHaveAttribute('aria-labelledby', 'runtime-title');
   });
 });
 

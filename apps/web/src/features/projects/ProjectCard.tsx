@@ -7,6 +7,7 @@ import { ExternalIcon } from '../../components/ui/icons';
 interface ProjectCardProps {
   project: Project;
   index: number;
+  onOpenCaseStudy: (slug: string) => void;
 }
 
 /**
@@ -14,7 +15,7 @@ interface ProjectCardProps {
  * display while the technology list keeps its dataset casing — both match the
  * reference's runtime renderer.
  */
-export const ProjectCard = ({ project, index }: ProjectCardProps) => {
+export const ProjectCard = ({ project, index, onOpenCaseStudy }: ProjectCardProps) => {
   const entrance = useEntrance({ delay: staggerDelay(index) });
   const hover = useHoverLift();
 
@@ -44,6 +45,13 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               <ExternalIcon />
             </a>
           ))}
+
+          {/* The case study is now reached from the card rather than from a
+              workspace pane; it opens in a modal dialog. */}
+          <button type="button" onClick={() => onOpenCaseStudy(project.slug)}>
+            CASE STUDY
+            <ExternalIcon />
+          </button>
         </div>
       </div>
 

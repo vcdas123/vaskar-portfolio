@@ -1,6 +1,4 @@
 import type {
-  ArchitectureEntry as ArchitectureEntryRow,
-  BuildLog,
   ContactChannel as ContactChannelRow,
   Education as EducationRow,
   Experience as ExperienceRow,
@@ -27,8 +25,6 @@ import type {
 export type ProjectWithRelations = ProjectRow & {
   tech: ProjectTech[];
   links: ProjectLinkRow[];
-  architecture: ArchitectureEntryRow[];
-  logs: BuildLog[];
 };
 
 export type SkillGroupWithItems = SkillGroupRow & { items: SkillItem[] };
@@ -81,14 +77,9 @@ export const toProject = (row: ProjectWithRelations): Project => ({
   title: row.title,
   file: row.file,
   type: row.type,
-  description: row.description,
   cardDescription: row.cardDescription,
   command: row.command,
   tech: row.tech.map((entry) => entry.label),
-  architecture: row.architecture.map((entry) => ({ key: entry.key, value: entry.value })),
-  logs: row.logs.map((entry) => entry.message),
-  metric: row.metric,
-  outcome: row.outcome,
   links: row.links.map((link) => ({ label: link.label, url: link.url, primary: link.primary })),
 });
 

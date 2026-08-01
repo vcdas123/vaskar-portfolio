@@ -5,9 +5,10 @@ import { ProjectCard } from './ProjectCard';
 
 interface ProjectsSectionProps {
   projects: Project[];
+  onOpenCaseStudy: (slug: string) => void;
 }
 
-export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
+export const ProjectsSection = ({ projects, onOpenCaseStudy }: ProjectsSectionProps) => {
   const headEntrance = useEntrance();
 
   return (
@@ -19,7 +20,12 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
 
       <div className="cases three">
         {projects.map((project, index) => (
-          <ProjectCard key={project.slug} project={project} index={index} />
+          <ProjectCard
+            key={project.slug}
+            project={project}
+            index={index}
+            onOpenCaseStudy={onOpenCaseStudy}
+          />
         ))}
       </div>
     </section>

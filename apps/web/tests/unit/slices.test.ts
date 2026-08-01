@@ -13,11 +13,6 @@ import {
   submissionStarted,
   submissionSucceeded,
 } from '../../src/features/contact/contactSlice';
-import {
-  defaultProjectResolved,
-  projectSelected,
-  projectsSlice,
-} from '../../src/features/projects/projectsSlice';
 
 const reduceAll = <TState, TAction>(
   reducer: (state: TState | undefined, action: TAction) => TState,
@@ -27,27 +22,6 @@ const reduceAll = <TState, TAction>(
     (state, action) => reducer(state, action),
     undefined,
   ) as TState;
-
-describe('projectsSlice', () => {
-  const { reducer } = projectsSlice;
-
-  it('starts with nothing selected until the payload arrives', () => {
-    expect(reducer(undefined, { type: '@@init' }).selectedSlug).toBeNull();
-  });
-
-  it('adopts the first project as the default', () => {
-    const state = reduceAll(reducer, [defaultProjectResolved('cachiva')]);
-    expect(state.selectedSlug).toBe('cachiva');
-  });
-
-  it('does not let the default override an explicit selection', () => {
-    const state = reduceAll(reducer, [
-      projectSelected('myhistory'),
-      defaultProjectResolved('cachiva'),
-    ]);
-    expect(state.selectedSlug).toBe('myhistory');
-  });
-});
 
 describe('caseStudiesSlice', () => {
   const { reducer } = caseStudiesSlice;

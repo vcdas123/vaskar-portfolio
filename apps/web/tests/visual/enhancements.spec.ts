@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { VIEWPORTS } from '../../playwright.config';
-import { gotoPortfolio, openCaseStudy } from './helpers';
+import { gotoPortfolio } from './helpers';
 
 /**
  * Covers the responsive rules the brief calls out explicitly, plus the deliberate
@@ -130,10 +130,10 @@ test.describe('deliberate design changes', () => {
         return `${s.fontSize}/${s.fontWeight}`;
       };
       return {
-        run: read('.run'),
         submit: read('.ct-submit'),
         restart: read('.ct-restart'),
         projectAction: read('.project-actions a'),
+        caseStudy: read('.project-actions button'),
       };
     });
     const values = Object.values(metrics);
@@ -161,26 +161,6 @@ test.describe('deliberate design changes', () => {
     await gotoPortfolio(page);
     await expect(page.locator('.ct-note')).toHaveCount(0);
     await expect(page.locator('.contact-terminal')).not.toContainText('DEMO MODE');
-  });
-
-  test('the active tab indicator follows the selected file', async ({ page }) => {
-    await gotoPortfolio(page);
-    await expect(page.locator('.tab-indicator')).toHaveCount(1);
-
-    const firstTab = await page.locator('.tab.active').boundingBox();
-    await page.click('.tree li.indent:nth-child(4) .tree-button');
-    await page.waitForTimeout(400);
-
-    const indicator = await page.locator('.tab-indicator').boundingBox();
-    const activeTab = await page.locator('.tab.active').boundingBox();
-    expect(indicator?.x).toBeCloseTo(activeTab?.x ?? -1, 0);
-    expect(indicator?.x).not.toBeCloseTo(firstTab?.x ?? -1, 0);
-
-    // While the case study is open the indicator moves to its tab.
-    await openCaseStudy(page);
-    const caseTab = await page.locator('.tabs .case-tab').boundingBox();
-    const moved = await page.locator('.tab-indicator').boundingBox();
-    expect(moved?.x).toBeCloseTo(caseTab?.x ?? -1, 0);
   });
 });
 

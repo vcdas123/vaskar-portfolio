@@ -89,25 +89,15 @@ export const projectLinkSchema = z.object({
   primary: z.boolean(),
 });
 
-export const architectureEntrySchema = z.object({
-  key: displayString,
-  value: displayString,
-});
-
 export const projectSchema = z.object({
   slug: slugSchema,
   title: displayString,
-  /** Explorer/tab filename: `cachiva.ts`. */
+  /** Source-style filename shown in the case-study dialog: `cachiva.ts`. */
   file: displayString,
   type: displayString,
-  description: displayString,
   cardDescription: displayString,
   command: displayString,
   tech: z.array(displayString),
-  architecture: z.array(architectureEntrySchema),
-  logs: z.array(displayString),
-  metric: displayString,
-  outcome: displayString,
   links: z.array(projectLinkSchema),
 });
 
@@ -178,7 +168,6 @@ export type Site = z.infer<typeof siteSchema>;
 export type Profile = z.infer<typeof profileSchema>;
 export type Metric = z.infer<typeof metricSchema>;
 export type ProjectLink = z.infer<typeof projectLinkSchema>;
-export type ArchitectureEntry = z.infer<typeof architectureEntrySchema>;
 export type Project = z.infer<typeof projectSchema>;
 export type SkillGroup = z.infer<typeof skillGroupSchema>;
 export type Experience = z.infer<typeof experienceSchema>;

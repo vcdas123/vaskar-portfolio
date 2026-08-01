@@ -1,0 +1,155 @@
+/**
+ * The engineering-runtime section, ported from the updated reference.
+ *
+ * It takes the place of the IDE-style workspace (`.workspace`, `.sidebar`,
+ * `.tree`, `.tabs`, `.output`, `.output-side`, `.log`, `.resultbox`, `.script`,
+ * `.run`, `.case-file`), all of which are removed from the reference layers along
+ * with it.
+ *
+ * Colour and layout literals are replaced by `--portfolio-*` tokens; nothing else
+ * is altered.
+ */
+
+.runtime {
+  padding: 88px 0;
+  border-bottom: 1px solid var(--portfolio-border);
+}
+
+.runtime-head {
+  display: grid;
+  grid-template-columns: var(--portfolio-rail) 1fr;
+  align-items: end;
+  margin-bottom: 40px;
+}
+
+.runtime-head small {
+  font: 400 11px var(--portfolio-font-mono);
+  color: var(--portfolio-primary);
+}
+
+.runtime-head h2 {
+  font-size: clamp(44px, 5.5vw, 80px);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  margin: 0;
+  max-width: 900px;
+}
+
+.runtime-console {
+  border: 1px solid var(--portfolio-border);
+  background: var(--portfolio-surface);
+}
+
+.runtime-command {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--portfolio-border);
+  font: 400 11px var(--portfolio-font-mono);
+  color: var(--portfolio-muted);
+}
+
+.runtime-command span:last-child {
+  color: var(--portfolio-primary);
+}
+
+/* Four stages with an arrow between each pair: `1fr auto 1fr auto 1fr auto 1fr`. */
+.runtime-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: stretch;
+}
+
+.runtime-flow article {
+  padding: 28px 24px;
+}
+
+.runtime-flow article b {
+  font: 400 11px var(--portfolio-font-mono);
+  color: var(--portfolio-primary);
+}
+
+.runtime-flow article h3 {
+  font: 500 18px var(--portfolio-font-mono);
+  margin: 16px 0 12px;
+}
+
+.runtime-flow article p {
+  margin: 0;
+  color: var(--portfolio-text-script);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.runtime-flow > i {
+  align-self: center;
+  color: var(--portfolio-primary);
+  font-style: normal;
+}
+
+.runtime-log {
+  border-top: 1px solid var(--portfolio-border);
+  padding: 16px 18px;
+  font: 400 11px var(--portfolio-font-mono);
+  color: var(--portfolio-muted);
+}
+
+.runtime-log span {
+  color: var(--portfolio-secondary);
+}
+
+.runtime-log b {
+  color: var(--portfolio-primary);
+  font-weight: 400;
+}
+
+@media (max-width: 1000px) {
+  .runtime-head {
+    grid-template-columns: var(--portfolio-rail-md) 1fr;
+  }
+
+  /* Two per row; the arrows would no longer sit between stages, so they go. */
+  .runtime-flow {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .runtime-flow > i {
+    display: none;
+  }
+
+  .runtime-flow article:nth-of-type(-n + 2) {
+    border-bottom: 1px solid var(--portfolio-border);
+  }
+}
+
+@media (max-width: 600px) {
+  .runtime {
+    padding: 65px 0;
+  }
+
+  .runtime-head {
+    display: block;
+  }
+
+  .runtime-head h2 {
+    margin-top: 14px;
+  }
+
+  .runtime-command {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .runtime-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .runtime-flow article {
+    padding: 22px;
+  }
+
+  .runtime-flow article:not(:last-of-type) {
+    border-bottom: 1px solid var(--portfolio-border);
+  }
+}
