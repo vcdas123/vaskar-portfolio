@@ -73,7 +73,6 @@ const resolveApiBaseUrl = (configured: string): string => {
   const targetIsLocal = LOCAL_HOSTS.has(target.hostname);
 
   if (targetIsLocal && !pageIsLocal) {
-    // eslint-disable-next-line no-console
     console.warn(
       `[portfolio] VITE_API_BASE_URL is "${configured}", which points at localhost, ` +
         `but this page is served from ${window.location.origin}. ` +
