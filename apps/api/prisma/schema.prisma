@@ -1,0 +1,292 @@
+// Normalized model of `portfolio-data.json`.
+// Every collection carries an explicit `position` so the API can reproduce the
+// reference document order without relying on insertion order.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Singleton row (`id = "singleton"`) holding site chrome, theme tokens and profile.
+model SiteSetting {
+  id          String @id @default("singleton")
+  title       String
+  headerName  String
+  logoText    String
+  statusText  String
+  /// Note rendered beneath the contact terminal.
+  contactNote String
+  footerYear  Int
+
+  themeSource     String
+  colorBackground String
+  colorSurface    String
+  colorText       String
+  colorPrimary    String
+  colorSecondary  String
+  colorWarning    String
+  colorMuted      String
+  colorBorder     String
+  fontBody        String
+  fontMono        String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+/// Singleton row (`id = "singleton"`); experience is derived from `careerStart`.
+model Profile {
+  id          String   @id @default("singleton")
+  name        String
+  role        String
+  location    String
+  careerStart DateTime @db.Date
+  positioning String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("profiles")
+}
+
+model Metric {
+  id            String @id @default(uuid())
+  key           String @unique
+  label         String
+  terminalLabel String
+  value         String
+  terminalValue String
+  progress      Int
+  position      Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([position])
+  @@map("metrics")
+}
+
+model Project {
+  id              String @id @default(uuid())
+  slug            String @unique
+  title           String
+  file            String
+  type            String
+  description     String
+  cardDescription String
+  command         String
+  metric          String
+  outcome         String
+  position        Int
+
+  tech         ProjectTech[]
+  links        ProjectLink[]
+  architecture ArchitectureEntry[]
+  logs         BuildLog[]
+  caseStudy    CaseStudy?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([position])
+  @@map("projects")
+}
+
+model ProjectTech {
+  id        String  @id @default(uuid())
+  projectId String
+  label     String
+  position  Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, position])
+  @@map("project_tech")
+}
+
+model ProjectLink {
+  id        String  @id @default(uuid())
+  projectId String
+  label     String
+  url       String
+  primary   Boolean @default(false)
+  position  Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, position])
+  @@map("project_links")
+}
+
+/// One `key: "value"` line of the rendered `const architecture = { … }` block.
+model ArchitectureEntry {
+  id        String  @id @default(uuid())
+  projectId String
+  key       String
+  value     String
+  position  Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, position])
+  @@map("architecture_entries")
+}
+
+/// One line of a project's `OUTPUT / BUILD LOG` panel.
+model BuildLog {
+  id        String  @id @default(uuid())
+  projectId String
+  message   String
+  position  Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, position])
+  @@map("build_logs")
+}
+
+model CaseStudy {
+  id        String @id @default(uuid())
+  projectId String @unique
+  problem   String
+  outcome   String
+  why       String
+
+  project Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  lists   CaseStudyListItem[]
+  flow    CaseStudyFlowNode[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("case_studies")
+}
+
+enum CaseStudyListKind {
+  CONSTRAINT
+  DECISION
+  IMPLEMENTATION
+}
+
+/// Bullet list rows for the constraints / decisions / implementation blocks.
+model CaseStudyListItem {
+  id          String            @id @default(uuid())
+  caseStudyId String
+  kind        CaseStudyListKind
+  text        String
+  position    Int
+  caseStudy   CaseStudy         @relation(fields: [caseStudyId], references: [id], onDelete: Cascade)
+
+  @@unique([caseStudyId, kind, position])
+  @@index([caseStudyId, kind])
+  @@map("case_study_list_items")
+}
+
+/// One node of the `SYSTEM FLOW` chain.
+model CaseStudyFlowNode {
+  id          String    @id @default(uuid())
+  caseStudyId String
+  label       String
+  position    Int
+  caseStudy   CaseStudy @relation(fields: [caseStudyId], references: [id], onDelete: Cascade)
+
+  @@unique([caseStudyId, position])
+  @@map("case_study_flow_nodes")
+}
+
+model SkillGroup {
+  id       String @id @default(uuid())
+  name     String @unique
+  position Int
+
+  items SkillItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([position])
+  @@map("skill_groups")
+}
+
+model SkillItem {
+  id       String     @id @default(uuid())
+  groupId  String
+  label    String
+  position Int
+  group    SkillGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, position])
+  @@map("skill_items")
+}
+
+model Experience {
+  id       String @id @default(uuid())
+  code     String @unique
+  role     String
+  company  String
+  period   String
+  summary  String
+  position Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([position])
+  @@map("experiences")
+}
+
+model Education {
+  id          String @id @default(uuid())
+  degree      String
+  institution String
+  location    String
+  year        String
+  position    Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([degree, institution])
+  @@index([position])
+  @@map("education_entries")
+}
+
+/// Footer contact channels (email, phone, LinkedIn, GitHub).
+model ContactChannel {
+  id       String @id @default(uuid())
+  type     String @unique
+  label    String
+  url      String
+  position Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([position])
+  @@map("contact_channels")
+}
+
+enum ContactSubmissionStatus {
+  RECEIVED
+  REVIEWED
+  ARCHIVED
+}
+
+/// Persisted `POST /api/contact` payloads. Persistence *is* the completed
+/// behaviour until an email transport is configured.
+model ContactSubmission {
+  id      String                  @id @default(uuid())
+  name    String
+  purpose String
+  message String
+  status  ContactSubmissionStatus @default(RECEIVED)
+
+  receivedAt DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([receivedAt])
+  @@index([status])
+  @@map("contact_submissions")
+}

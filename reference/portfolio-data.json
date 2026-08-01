@@ -1,0 +1,116 @@
+{
+  "site": {
+    "title": "Vaskar Das — Performance Terminal",
+    "headerName": "VASKAR",
+    "logoText": "~/VD❯",
+    "statusText": "SYSTEM ONLINE",
+    "theme": {
+      "source": "mantine",
+      "colors": {
+        "background": "#050607",
+        "surface": "#090c0e",
+        "text": "#e8ebe4",
+        "primary": "#b7ff55",
+        "secondary": "#68ddff",
+        "warning": "#ff835c",
+        "muted": "#778078",
+        "border": "#252b28"
+      },
+      "fonts": {
+        "body": "Inter",
+        "mono": "DM Mono"
+      }
+    }
+  },
+  "profile": {
+    "name": "Vaskar Chandra Das",
+    "role": "SDE I",
+    "location": "Kolkata, India",
+    "careerStart": "2023-04-01",
+    "positioning": "I turn complex product ideas into clear, resilient digital systems—where architecture, performance and thoughtful interaction work as one."
+  },
+  "metrics": [
+    {"key":"api","label":"API response time","value":"-45%","progress":90},
+    {"key":"query","label":"Query latency","value":"-40%","progress":80},
+    {"key":"load","label":"Load time","value":"-35%","progress":70},
+    {"key":"render","label":"Render time","value":"-30%","progress":60}
+  ],
+  "projects": [
+    {
+      "slug":"cachiva","title":"Cachiva","file":"cachiva.ts","type":"Knowledge system",
+      "description":"A full-stack developer knowledge platform with purpose-built authoring and reading experiences, nested workspaces and structured Markdown rendering.",
+      "cardDescription":"Structured developer knowledge, flexible Markdown authoring, relational content, bookmarks and workspace access control.",
+      "command":"$ portfolio open cachiva --case-study","tech":["React","Node","Prisma"],
+      "architecture":{"client":"React + TypeScript","service":"Node.js + Express","data":"PostgreSQL + Prisma","security":"RBAC(public, private)"},
+      "logs":["relational schema compiled","JWT guards enabled","markdown pipeline ready","OpenAPI docs generated"],
+      "metric":"2×","outcome":"Focused user experiences",
+      "links":[{"label":"Live demo","url":"https://cachiva.vercel.app/","primary":true},{"label":"API docs","url":"https://cachiva-backend.vercel.app/","primary":false}]
+    },
+    {
+      "slug":"discovery","title":"Discovery Hub","file":"discovery-hub.ts","type":"Micro-frontend",
+      "description":"An enterprise micro-frontend platform with runtime remote loading, shared singleton dependencies and independent deployment.",
+      "cardDescription":"Runtime-loaded remotes, shared application shell, resilient boundaries and independent deployment through environment configuration.",
+      "command":"$ portfolio open discovery-hub --graph","tech":["Webpack 5","Redux","MUI"],
+      "architecture":{"host":"application-shell","remotes":"audit, discovery","shared":"singleton(react, router)","deploy":"independent"},
+      "logs":["host shell initialized","remotes loaded at runtime","error boundaries active","lazy chunks verified"],
+      "metric":"MFE","outcome":"Independent deployments",
+      "links":[{"label":"Live demo","url":"https://learn-mf.vercel.app/","primary":true},{"label":"Source","url":"https://github.com/vcdas123/learn-mf","primary":false}]
+    },
+    {
+      "slug":"myhistory","title":"MyHistory","file":"myhistory.ts","type":"Private records system",
+      "description":"A local-first private records archive with searchable documents, multiple editable timelines, browser previews and linked financial records.",
+      "cardDescription":"A local-first archive for private records with searchable documents, editable timelines, file previews and linked financial records.",
+      "command":"$ portfolio open myhistory --local-first","tech":["React","Express","Postgres"],
+      "architecture":{"client":"React + Mantine","service":"Express + TypeScript","data":"PostgreSQL + Filesystem","privacy":"localOnly(true)"},
+      "logs":["file catalog indexed","document previews ready","timelines linked","financial summaries calculated"],
+      "metric":"3","outcome":"Connected record views",
+      "links":[{"label":"Live demo","url":"https://myhistory-phi.vercel.app/","primary":true}]
+    }
+  ],
+  "skills": [
+    {"group":"Interface","items":["React.js · Next.js","TypeScript · JavaScript","Redux · RTK Query · Zustand","Tailwind · Mantine · MUI"]},
+    {"group":"Services & Data","items":["Node.js · Express.js","Python · FastAPI · Java","REST APIs · OpenAPI","PostgreSQL · Prisma","MongoDB · MySQL"]},
+    {"group":"Architecture","items":["Micro-Frontends","Module Federation","Event-driven processing","Caching · Pagination"]},
+    {"group":"Quality & Delivery","items":["Cypress · Unit testing","Integration testing","Storybook · GitHub","Webpack · Vercel"]}
+  ],
+  "experience": [
+    {"code":"a3f2025","role":"SDE I","company":"NowPurchase","period":"2025—NOW","summary":"Micro-frontends, API services, PostgreSQL optimization, caching, pagination and UI performance."},
+    {"code":"c9d2023","role":"SDE","company":"TRP Global","period":"2023—2025","summary":"Enterprise Audit, ERM, ITGC and document systems with secure APIs and queue-based processing."}
+  ],
+  "education": [{"degree":"Master of Computer Applications","institution":"Swami Vivekananda University","location":"Barrackpore, West Bengal","year":"2024"}],
+  "contacts": [
+    {"type":"Email","label":"vcdas123@gmail.com","url":"mailto:vcdas123@gmail.com"},
+    {"type":"Phone","label":"+91 89105 17164","url":"tel:+918910517164"},
+    {"type":"LinkedIn","label":"linkedin.com/in/vcdas","url":"https://www.linkedin.com/in/vcdas/"},
+    {"type":"GitHub","label":"github.com/vcdas123","url":"https://github.com/vcdas123"}
+  ],
+  "caseStudies": {
+    "cachiva": {
+      "problem":"Technical knowledge needed to remain expressive for authors while becoming structured, searchable and dependable for readers.",
+      "constraints":["One content model supports notes, nested modules, groups, bookmarks and visibility rules.","Frontend and backend require the same Markdown interpretation.","Serverless deployment requires pooled connections and predictable API contracts."],
+      "decisions":["Shared @learning-hub/markdown parser, transformer and validator.","Route → controller → service → Prisma repository layers.","Zod validation, JWT authentication and standardized API envelopes."],
+      "implementation":["CodeMirror authoring, drag-and-drop organization and focused reading.","PostgreSQL models for users, modules, notes, sections, bookmarks and groups.","Swagger/OpenAPI and Vercel serverless deployment."],
+      "outcome":"Structured content, access control and rendering stay synchronized across repositories.",
+      "why":"It demonstrates cross-repository contract design—not only a CRUD application—and shows how shared domain logic prevents frontend/backend drift.",
+      "flow":["CodeMirror author","Shared Markdown package","Express services","Prisma + PostgreSQL","Focused reader"]
+    },
+    "discovery": {
+      "problem":"Multiple independently developed experiences needed to appear as one product without bundling every feature into the host.",
+      "constraints":["Shared libraries cannot be duplicated across runtimes.","Every remote needs standalone development and deployment.","Remote network failures must not crash the host."],
+      "decisions":["Host owns routing, state, themes and navigation.","Cosmos, Atlas and Vault expose ./App through Module Federation.","Runtime URLs are environment-configured and loaded containers are cached."],
+      "implementation":["Lazy remoteEntry.js loading on route activation.","Five-attempt retries and remote-specific error boundaries.","Singleton dependency sharing for React, router, state and styling."],
+      "outcome":"Three separately deployable products operate inside one consistent application shell.",
+      "why":"It proves practical understanding of distributed frontend boundaries, runtime integration and failure handling—not merely static code splitting.",
+      "flow":["Host shell","Route requested","Runtime loader","Cosmos / Atlas / Vault","Shared context"]
+    },
+    "myhistory": {
+      "problem":"Private records, dated events and related spending needed one searchable system without losing original files.",
+      "constraints":["File bytes stay local while metadata remains queryable.","External filesystem changes need resynchronization.","Timelines and expenses link to supporting documents."],
+      "decisions":["Filesystem stores bytes; PostgreSQL stores metadata.","Startup/resync catalog reconciles folders with database records.","Separate document, timeline and financial views connect through references."],
+      "implementation":["Search, filtering, previews, downloads and collision-safe uploads.","Editable timelines with supporting-document links.","Financial totals, category summaries and linked receipts."],
+      "outcome":"Disconnected files become searchable evidence, chronology and traceable financial records.",
+      "why":"It shows thoughtful hybrid-storage design and domain modeling while respecting the privacy boundary of sensitive personal data.",
+      "flow":["Local files","Catalog + resync","PostgreSQL metadata","Documents / timelines / expenses","Linked evidence"]
+    }
+  }
+}

@@ -1,0 +1,111 @@
+/**
+ * Icon alignment.
+ *
+ * Tabler icons are square SVGs on the text baseline, which sits a little low
+ * against mono type. `vertical-align` lifts them into place, and `flex-shrink: 0`
+ * stops them collapsing inside the flex rows they appear in (tabs, buttons,
+ * footers, the flow chain).
+ *
+ * Icons inherit `currentColor`, so every existing colour rule keeps working — a
+ * lime button's icon is lime-on-black without a single extra declaration.
+ */
+
+.icon {
+  display: inline-block;
+  vertical-align: -0.2em;
+  flex-shrink: 0;
+  stroke: currentColor;
+}
+
+/* Buttons and tabs lay their icon beside the label.
+ *
+ * `.ct-restart` is matched only in its visible state: it defaults to
+ * `display: none` until the first answer is recorded, and an unconditional
+ * `display: inline-flex` here would override that and reveal it immediately. */
+.run,
+.cs-close,
+.ct-submit,
+.ct-restart.is-visible,
+.boot-retry,
+.tab,
+.project-actions a,
+.cs-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* The icon still needs centring inside the hidden-by-default button once shown. */
+.ct-restart {
+  align-items: center;
+  gap: 7px;
+}
+
+/* `.run` is `display: inline-block` in the reference; inline-flex keeps the same
+   box while letting the icon and label align on one row. */
+
+.tab {
+  /* The strip aligns tabs to the bottom, so the flex box must not stretch. */
+  align-self: flex-end;
+}
+
+/* Explorer rows: icon, then filename. */
+.tree li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tree-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The build log and skill lists put a check in front of each line. */
+.log .ok .icon,
+.skill-group li .icon {
+  vertical-align: -0.22em;
+}
+
+.skill-group li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+/* The marker is replaced by an icon, so the ✓ pseudo-element stands down. */
+.skill-group li:before {
+  content: none;
+  margin-right: 0;
+}
+
+/* Contact tiles lead with a channel mark beside the label. */
+.contact-links a b {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* The flow chain's arrows become icons; the mobile rotation still applies. */
+.flow-arrow {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* The compile spinner turns while the case study builds. */
+.icon-spin {
+  animation: iconSpin 0.9s linear infinite;
+}
+
+@keyframes iconSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-spin {
+    animation: none;
+  }
+}

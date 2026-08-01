@@ -1,0 +1,11 @@
+{
+  "$comment": "Type-checks the root `api/` serverless functions, which sit outside every workspace's tsconfig. Vercel compiles these files itself; this only verifies them.",
+  "extends": "./packages/tsconfig/node.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": true,
+    "declaration": false,
+    "declarationMap": false
+  },
+  "include": ["api"]
+}

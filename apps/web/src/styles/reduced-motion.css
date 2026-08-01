@@ -1,0 +1,41 @@
+/**
+ * `prefers-reduced-motion` support for every non-essential animation.
+ *
+ * The reference only quiets the status dot; the brief requires the same respect
+ * across the whole interface. Each animation below is decorative — the final
+ * painted state is what the animation ends on, so disabling it changes motion
+ * only, never layout or colour.
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Caret in the hero command line: settle on the solid block. */
+  .cmd .blink {
+    animation: none;
+  }
+
+  /* Benchmark bars: land at full width instead of growing. */
+  .fill {
+    animation: none;
+    transform: none;
+  }
+
+  /* Case-study compile loader. */
+  .cs-loader i,
+  .cs-loader-track span,
+  .boot-console i,
+  .boot-track span {
+    animation: none;
+  }
+
+  /* The indeterminate compile bars have no meaningful resting position, so they
+     become a static filled track rather than a stalled sliver. */
+  .cs-loader-track span,
+  .boot-track span {
+    width: 100%;
+    transform: none;
+  }
+}

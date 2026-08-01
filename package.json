@@ -1,0 +1,57 @@
+{
+  "name": "performance-terminal",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Full-stack Performance Terminal portfolio \u2014 React/Vite frontend, Express/Prisma API.",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run build --workspace @portfolio/contracts && concurrently -n api,web -c cyan,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm run dev --workspace @portfolio/api",
+    "dev:web": "npm run dev --workspace @portfolio/web",
+    "build": "npm run build --workspace @portfolio/contracts && npm run build --workspace @portfolio/api && npm run build --workspace @portfolio/web",
+    "typecheck": "npm run typecheck --workspaces --if-present && npm run typecheck:functions",
+    "lint": "npm run lint --workspaces --if-present",
+    "lint:fix": "npm run lint:fix --workspaces --if-present",
+    "format": "prettier --write \"**/*.{ts,tsx,css,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,css,json,md}\"",
+    "test": "npm run test --workspaces --if-present",
+    "test:api": "npm run test --workspace @portfolio/api",
+    "test:web": "npm run test --workspace @portfolio/web",
+    "test:visual": "npm run test:visual --workspace @portfolio/web",
+    "db:migrate": "npm run db:migrate --workspace @portfolio/api",
+    "db:migrate:deploy": "npm run db:migrate:deploy --workspace @portfolio/api",
+    "db:generate": "npm run db:generate --workspace @portfolio/api",
+    "db:seed": "npm run db:seed --workspace @portfolio/api",
+    "db:reset": "npm run db:reset --workspace @portfolio/api",
+    "db:studio": "npm run db:studio --workspace @portfolio/api",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "postinstall": "npm run build --workspace @portfolio/contracts",
+    "build:vercel": "npm run build --workspace @portfolio/contracts && npm run build --workspace @portfolio/api && npm run build --workspace @portfolio/web",
+    "typecheck:functions": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@types/node": "^20.14.10",
+    "concurrently": "^8.2.2",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.1.0"
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "prisma": true,
+    "@prisma/engines": true,
+    "@prisma/client": true,
+    "fsevents": true
+  }
+}

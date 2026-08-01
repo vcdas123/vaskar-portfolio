@@ -1,0 +1,84 @@
+/**
+ * Loading and error states.
+ *
+ * Deliberately not a card: no border, no panel, no surface fill — just the boot
+ * sequence printing onto the page background, the way a console starts up. The
+ * only rule is the hairline under the command line, which separates the command
+ * from its output rather than boxing the whole thing in.
+ *
+ * Both states are replaced outright by the real page, so nothing they occupy
+ * survives into the final layout.
+ */
+
+.boot-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.boot-console {
+  width: min(560px, 100%);
+  font: 400 13px/2 var(--portfolio-font-mono);
+  color: var(--portfolio-muted);
+}
+
+.boot-command {
+  color: var(--portfolio-text);
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--portfolio-border);
+}
+
+.boot-console b {
+  color: var(--portfolio-primary);
+  font-weight: 400;
+}
+
+.boot-fail {
+  color: var(--portfolio-warning);
+}
+
+/* Animated ellipsis on the in-flight step. */
+.boot-console i {
+  display: inline-block;
+  color: var(--portfolio-primary);
+  font-style: normal;
+  letter-spacing: 3px;
+  animation: loaderDots 0.8s steps(3) infinite;
+}
+
+/* An indeterminate hairline, not a filled bar in a well. */
+.boot-track {
+  height: 1px;
+  background: var(--portfolio-border);
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.boot-track span {
+  display: block;
+  height: 100%;
+  width: 38%;
+  background: var(--portfolio-primary);
+  animation: compileTrack 1.1s ease-in-out infinite;
+}
+
+.boot-retry {
+  margin-top: 20px;
+  background: var(--portfolio-primary);
+  border: 0;
+  color: var(--portfolio-background);
+  cursor: pointer;
+}
+
+.boot-retry:hover {
+  background: var(--portfolio-primary-hover);
+}
+
+@media (max-width: 600px) {
+  .boot-console {
+    font-size: 11px;
+  }
+}

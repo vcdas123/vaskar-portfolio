@@ -1,0 +1,150 @@
+/**
+ * App-level enhancements that go beyond the reference stylesheet.
+ *
+ * Kept separate from `reference/*.css` so those files stay a faithful port and the
+ * intentional deviations are all visible in one place.
+ */
+
+/* Text selection in the terminal's lime rather than the browser's default blue. */
+::selection {
+  background: var(--portfolio-primary);
+  color: var(--portfolio-background);
+  /* Selected copy sits on a bright fill; drop any inherited glow. */
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: var(--portfolio-primary);
+  color: var(--portfolio-background);
+  text-shadow: none;
+}
+
+/* Selected text inside the lime-on-dark controls (RUN CASE STUDY, ENTER ↵) would
+   otherwise be lime on lime. */
+.run::selection,
+.ct-submit::selection,
+.boot-retry::selection,
+.project-actions .primary::selection,
+.cs-actions a:first-child::selection {
+  background: var(--portfolio-background);
+  color: var(--portfolio-primary);
+}
+
+/* The scrollbar is part of the chrome at these contrasts; match the terminal. */
+* {
+  scrollbar-color: var(--portfolio-border) var(--portfolio-background);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--portfolio-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--portfolio-border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--portfolio-muted);
+}
+
+/* Native form controls and the caret follow the accent. */
+:root {
+  caret-color: var(--portfolio-primary);
+  accent-color: var(--portfolio-primary);
+}
+
+/* --- Button scale ---------------------------------------------------------
+ * The reference set `.run` (RUN CASE STUDY) at 9px/13px-18px while every other
+ * control in the app — project actions, case-study actions, ENTER ↵, RESTART
+ * SESSION, the retry buttons — uses 10px/11px-14px. That made the most prominent
+ * button in the workspace the odd one out. One shared metric for all of them.
+ */
+.run,
+.cs-close,
+.ct-submit,
+.ct-restart,
+.boot-retry,
+.project-actions a,
+.project-actions span,
+.cs-actions a {
+  font-family: var(--portfolio-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 11px 14px;
+  letter-spacing: 0.04em;
+}
+
+/* `.project-actions` items keep their slightly tighter inline padding so a row of
+   three still fits at 320px. */
+.project-actions a,
+.project-actions span {
+  padding: 11px 12px;
+}
+
+/* --- Explorer and tab switching -------------------------------------------
+ * The reference switches the active file instantly. These transitions ease the
+ * highlight between rows and tabs; the resting appearance is unchanged.
+ */
+.tree li,
+.tree-button,
+.tab {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.tree li:hover:not(.active) {
+  background: color-mix(in srgb, var(--portfolio-primary) 5%, transparent);
+}
+
+/* The lime rule on the active tab is drawn by the shared `layoutId` indicator in
+   ProjectTabs so it can slide between tabs; the static border is stood down. */
+.tabs .tab {
+  position: relative;
+}
+
+.tabs .tab.active,
+.tabs .case-tab {
+  border-top-color: transparent;
+}
+
+.tab-indicator {
+  position: absolute;
+  /* Aligned to the border-box edge: absolute offsets are relative to the padding
+     box, which starts below the tab's 2px top border. */
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--portfolio-primary);
+}
+
+/* The cross-fade wrapper around `.output-side` must not shorten it. In the
+   reference the aside is itself the grid item, so its `border-left` runs the full
+   row height; `display: grid` makes the wrapper stretch the aside the same way.
+   (`display: contents` would be closer still, but transforms do not apply to it.) */
+.output-side-motion {
+  display: grid;
+  min-width: 0;
+}
+
+/* Hover parity: the solid lime buttons all brighten the same way. */
+.run:hover,
+.ct-submit:hover {
+  background: var(--portfolio-primary-hover);
+}
+
+.cs-actions a:first-child:hover {
+  background: var(--portfolio-primary-hover);
+  border-color: var(--portfolio-primary-hover);
+}
+
+.ct-restart:hover {
+  background: color-mix(in srgb, var(--portfolio-primary) 12%, transparent);
+}

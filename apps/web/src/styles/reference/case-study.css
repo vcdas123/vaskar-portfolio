@@ -1,0 +1,130 @@
+/**
+ * Reference layer 3 of 5 — ported from the third <style> block of
+ * `performance-terminal.html`: the compiled case-study document.
+ *
+ * The block's `.case-study` wrapper rules are omitted — the reference DOM never
+ * contains that element; the case study is rendered inside `.case-file`, which
+ * layer 4 styles.
+ *
+ * The `.cs-grid` / `.cs-block` / `.cs-flow` rules are also omitted: the compiled
+ * case study is now rendered as a Markdown source view (`case-study-doc.css`)
+ * rather than the reference's two-column table of bordered blocks. The chrome
+ * (`.cs-head`, `.cs-terminal`, `.cs-status`, `.cs-actions`) and the flow chain
+ * (`.flow-*`) are unchanged and still live.
+ */
+
+.cs-head {
+  display: grid;
+  grid-template-columns: var(--portfolio-rail) 1fr auto;
+  gap: 28px;
+  align-items: end;
+  margin-bottom: 40px;
+}
+
+.cs-kicker {
+  font: 400 11px var(--portfolio-font-mono);
+  color: var(--portfolio-primary);
+}
+
+.cs-head h2 {
+  font-size: clamp(46px, 6vw, 86px);
+  line-height: 0.88;
+  letter-spacing: -0.055em;
+  margin: 0;
+}
+
+.cs-close {
+  border: 1px solid var(--portfolio-border);
+  background: transparent;
+  color: var(--portfolio-text);
+  padding: 11px 14px;
+  font: 400 10px var(--portfolio-font-mono);
+  cursor: pointer;
+}
+
+.cs-close:hover {
+  border-color: var(--portfolio-primary);
+  color: var(--portfolio-primary);
+}
+
+.cs-terminal {
+  border: 1px solid var(--portfolio-border);
+  background: var(--portfolio-surface);
+}
+
+.cs-status {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--portfolio-border);
+  padding: 13px 18px;
+  font: 400 10px var(--portfolio-font-mono);
+  color: var(--portfolio-muted);
+}
+
+.cs-status span:last-child {
+  color: var(--portfolio-primary);
+}
+
+.flow-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.flow-node {
+  border: 1px solid var(--portfolio-border);
+  padding: 12px 14px;
+  font: 400 11px var(--portfolio-font-mono);
+  color: var(--portfolio-text);
+}
+
+.flow-arrow {
+  color: var(--portfolio-primary);
+}
+
+.cs-actions {
+  border-top: 1px solid var(--portfolio-border);
+  padding: 18px 28px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cs-actions a {
+  border: 1px solid var(--portfolio-border);
+  padding: 11px 14px;
+  color: var(--portfolio-text);
+  text-decoration: none;
+  font: 500 10px var(--portfolio-font-mono);
+}
+
+.cs-actions a:first-child {
+  background: var(--portfolio-primary);
+  border-color: var(--portfolio-primary);
+  color: var(--portfolio-background);
+}
+
+@media (max-width: 600px) {
+  .cs-head {
+    display: block;
+  }
+
+  .cs-head h2 {
+    margin: 14px 0 22px;
+  }
+
+  .flow-line {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .flow-arrow {
+    transform: rotate(90deg);
+    align-self: center;
+  }
+
+  .cs-actions {
+    padding: 16px 22px;
+  }
+}

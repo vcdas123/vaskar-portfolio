@@ -1,0 +1,90 @@
+/**
+ * Corner radii.
+ *
+ * The reference design is entirely square. This layer rounds every bordered
+ * surface and control by one consistent step, driven by the `--portfolio-radius-*`
+ * tokens so there is a single place to tune it.
+ *
+ * Loaded after the reference layers and the other enhancements so it wins without
+ * any `!important`.
+ *
+ * Panels that draw internal rules with child borders or grid gaps also get
+ * `overflow: hidden`, otherwise the square child backgrounds would poke through
+ * the rounded corners.
+ */
+
+/* --- Panels, cards and consoles ------------------------------------------- */
+
+.statusbox,
+.workspace,
+.skill-console,
+.case,
+.resultbox,
+.cs-terminal,
+.cs-loader,
+.contact-terminal,
+.command,
+.case .command {
+  border-radius: var(--portfolio-radius-md);
+}
+
+/* Containers whose children paint to the edge must clip. */
+.summary,
+.workspace,
+.skill-console,
+.contact-links,
+.cs-terminal {
+  border-radius: var(--portfolio-radius-md);
+  overflow: hidden;
+}
+
+/* --- Controls -------------------------------------------------------------- */
+
+.run,
+.cs-close,
+.ct-submit,
+.ct-restart,
+.boot-retry,
+.project-actions a,
+.project-actions span,
+.cs-actions a,
+.flow-node,
+.tree li {
+  border-radius: var(--portfolio-radius-sm);
+}
+
+/* Tabs are rounded at the top only — their bottom edge meets the tab strip. */
+.tab {
+  border-top-left-radius: var(--portfolio-radius-sm);
+  border-top-right-radius: var(--portfolio-radius-sm);
+}
+
+/* The active-tab indicator has to follow the tab's own top corners. */
+.tab-indicator {
+  border-top-left-radius: var(--portfolio-radius-sm);
+  border-top-right-radius: var(--portfolio-radius-sm);
+}
+
+/* The text input is underlined rather than boxed, so only its lower corners
+   would ever show; leaving it square keeps the underline flush. */
+
+/* --- Bars and tracks ------------------------------------------------------- */
+
+.track,
+.fill,
+.cs-loader-track,
+.cs-loader-track span,
+.boot-track,
+.boot-track span {
+  border-radius: var(--portfolio-radius-pill);
+}
+
+/* --- Sticky header -------------------------------------------------------- */
+
+/* The header spans the viewport, so rounding its corners would leave slivers of
+   page showing at the top edge. Its lower corners are rounded instead, which
+   reads as a panel resting over the content it blurs. */
+.top {
+  border-bottom-left-radius: var(--portfolio-radius-md);
+  border-bottom-right-radius: var(--portfolio-radius-md);
+}

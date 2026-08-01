@@ -1,0 +1,35 @@
+/**
+ * Global stylesheet entry point. Import order is the fidelity contract:
+ *
+ *   1. tokens.css            — `--portfolio-*` custom properties (generated)
+ *   2. reference/*.css       — the five reference <style> blocks, in source order
+ *   3. a11y / app-state      — additive focus, screen-reader and data-state styles
+ *   4. radius.css            — corner radii, after every surface is defined
+ *   5. reduced-motion.css    — motion opt-outs, last so they win
+ *   5. @tailwind utilities   — layout utilities that consume the token aliases
+ *
+ * Tailwind's preflight is disabled (see tailwind.config.ts): the reference
+ * stylesheet carries its own reset and relies on UA defaults for heading weight,
+ * paragraph margins and list markers.
+ */
+
+@import './tokens.css';
+
+@import './reference/core.css';
+@import './reference/sections.css';
+@import './reference/case-study.css';
+@import './reference/terminal-runtime.css';
+@import './reference/status.css';
+
+@import './a11y.css';
+@import './app-state.css';
+@import './enhancements.css';
+@import './case-study-doc.css';
+@import './header.css';
+@import './icons.css';
+@import './radius.css';
+@import './reduced-motion.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

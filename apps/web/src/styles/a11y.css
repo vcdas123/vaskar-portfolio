@@ -1,0 +1,48 @@
+/**
+ * Accessibility additions. These are strictly additive: nothing here renders
+ * unless the user is navigating by keyboard or using a screen reader, so the
+ * default appearance stays identical to the reference.
+ */
+
+/* One visible focus treatment for links, buttons and any custom tab stop.
+   Text inputs are excluded on purpose: the reference already signals focus on
+   `.ct-input` by turning its underline lime, so an outline would double up. */
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--portfolio-primary);
+  outline-offset: 2px;
+}
+
+/* Keep the underline treatment as the input's focus indicator, and make sure no
+   UA or utility outline is drawn on top of it. */
+.ct-input:focus,
+.ct-input:focus-visible {
+  outline: none;
+}
+
+/* The explorer rows are native buttons; the reference styles `.tree li`, so the
+   button resets its own chrome and inherits the row styling unchanged. */
+.tree-button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Screen-reader-only live region for status announcements. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

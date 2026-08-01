@@ -1,0 +1,42 @@
+/**
+ * Reference layer 5 of 5 — ported from the final <style> block of
+ * `performance-terminal.html`: the glowing "SYSTEM ONLINE" status dot.
+ *
+ * At 600px and below the label text collapses to `font-size: 0` so the animated
+ * dot remains visible without its caption — the reference behaviour the brief
+ * calls out explicitly.
+ */
+
+.live:before {
+  animation: onlineGlow 1.8s ease-in-out infinite;
+}
+
+@keyframes onlineGlow {
+  0%,
+  100% {
+    opacity: 0.7;
+    box-shadow: 0 0 5px var(--portfolio-primary);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 8px var(--portfolio-primary),
+      0 0 18px color-mix(in srgb, var(--portfolio-primary) 65%, transparent);
+  }
+}
+
+@media (max-width: 600px) {
+  .live {
+    font-size: 0;
+  }
+
+  .live:before {
+    margin-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live:before {
+    animation: none;
+  }
+}

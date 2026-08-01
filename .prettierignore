@@ -1,0 +1,7 @@
+node_modules
+dist
+coverage
+reference
+apps/api/prisma/migrations
+apps/web/tests/visual/__screenshots__
+performance-terminal.html

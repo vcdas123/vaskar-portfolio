@@ -1,0 +1,49 @@
+/* GENERATED FILE — edit src/styles/tokens.ts and run `npm run tokens`. */
+:root {
+  /* Core palette — seeded from site.theme.colors */
+  --portfolio-background: #050607;
+  --portfolio-surface: #090c0e;
+  --portfolio-text: #e8ebe4;
+  --portfolio-primary: #b7ff55;
+  --portfolio-secondary: #68ddff;
+  --portfolio-warning: #ff835c;
+  --portfolio-muted: #778078;
+  --portfolio-border: #1a1e1c;
+
+  /* Role-named surface and copy shades */
+  --portfolio-primary-hover: #d6ff9c;
+  --portfolio-text-hero: #9fa79f;
+  --portfolio-text-desc: #929c94;
+  --portfolio-text-prose: #abb3ac;
+  --portfolio-text-script: #a2aaa3;
+  --portfolio-text-log: #909991;
+  --portfolio-text-card: #8d968e;
+  --portfolio-text-tree: #8d968f;
+  --portfolio-text-skill: #a4aca5;
+  --portfolio-text-line-no: #3f4943;
+  --portfolio-surface-card: #080b0c;
+  --portfolio-surface-command: #0d1210;
+  --portfolio-surface-tab: #0d1113;
+  --portfolio-surface-tab-active: #111715;
+  --portfolio-surface-tree-active: #172019;
+  --portfolio-surface-track: #1f2522;
+  --portfolio-surface-dot: #39403c;
+  --portfolio-border-card-hover: #414c46;
+
+  /* Typography */
+  --portfolio-font-body: Inter, sans-serif;
+  --portfolio-font-mono: 'DM Mono', monospace;
+
+  /* Corner radii */
+  --portfolio-radius-sm: 4px;
+  --portfolio-radius-md: 8px;
+  --portfolio-radius-pill: 999px;
+
+  /* Layout rails */
+  --portfolio-shell-max: 1500px;
+  --portfolio-shell-gutter: 48px;
+  --portfolio-shell-gutter-md: 34px;
+  --portfolio-shell-gutter-sm: 22px;
+  --portfolio-rail: 250px;
+  --portfolio-rail-md: 170px;
+}

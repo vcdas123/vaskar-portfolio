@@ -1,0 +1,133 @@
+/**
+ * `case-study.md` rendered as an open source file.
+ *
+ * Replaces the reference's `.cs-grid` / `.cs-block` table. Everything is mono and
+ * single-column, with a line-number gutter that reuses the workspace's own
+ * `.line-no` colour, so the compiled case study reads as a file in the same editor
+ * rather than as a data table.
+ */
+
+.md-doc {
+  font: 400 13px/1.85 var(--portfolio-font-mono);
+  padding: 26px 0 30px;
+}
+
+/* Gutter + content. Wrapped prose stays inside the content column, exactly as
+   soft-wrapped lines do in an editor. */
+.md-line {
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  align-items: start;
+  column-gap: 0;
+  padding-right: 28px;
+}
+
+.md-gutter {
+  color: var(--portfolio-text-line-no);
+  text-align: right;
+  padding-right: 20px;
+  border-right: 1px solid var(--portfolio-border);
+  user-select: none;
+  /* The gutter rule is continuous: each row's border meets the next. */
+  align-self: stretch;
+  font-variant-numeric: tabular-nums;
+}
+
+.md-line > :not(.md-gutter) {
+  padding-left: 22px;
+  min-width: 0;
+}
+
+/* Markdown punctuation stays quiet so the prose leads. */
+.md-mark {
+  color: var(--portfolio-muted);
+}
+
+.md-h1 {
+  color: var(--portfolio-text);
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.md-h2 {
+  color: var(--portfolio-secondary);
+  letter-spacing: 0.04em;
+}
+
+.md-text {
+  color: var(--portfolio-text-prose);
+}
+
+/* `- ` marker hangs in its own column so wrapped bullet text aligns under the
+   first character rather than under the dash. */
+.md-bullet {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+}
+
+.md-dash {
+  color: var(--portfolio-primary);
+}
+
+.md-fence {
+  color: var(--portfolio-muted);
+}
+
+/* Blank source lines keep their height but paint nothing. */
+.md-line-blank {
+  line-height: 1.1;
+}
+
+.md-blank {
+  visibility: hidden;
+}
+
+/* The flow chain sits inside the fenced block, indented with the source.
+   `padding-block` only — the shorthand would reset the content column's
+   `padding-left` and pull the chips out of alignment with the prose. */
+.md-line-flow .flow-line {
+  padding-block: 10px 14px;
+}
+
+@media (max-width: 1000px) {
+  .md-line {
+    grid-template-columns: 52px 1fr;
+    padding-right: 22px;
+  }
+
+  .md-gutter {
+    padding-right: 16px;
+  }
+
+  .md-line > :not(.md-gutter) {
+    padding-left: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .md-doc {
+    font-size: 12px;
+    padding: 20px 0 24px;
+  }
+
+  .md-line {
+    grid-template-columns: 34px 1fr;
+    padding-right: 14px;
+  }
+
+  .md-gutter {
+    padding-right: 10px;
+  }
+
+  .md-line > :not(.md-gutter) {
+    padding-left: 12px;
+  }
+
+  .md-h1 {
+    font-size: 14px;
+  }
+
+  .md-bullet {
+    grid-template-columns: 16px 1fr;
+  }
+}
