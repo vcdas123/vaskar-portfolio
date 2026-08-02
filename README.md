@@ -1,7 +1,6 @@
 # Performance Terminal — full-stack portfolio
 
-A terminal-styled engineering portfolio, converted from the supplied
-`reference/performance-terminal.html` into a production-structured monorepo.
+A terminal-styled engineering portfolio.
 
 - **Frontend** — React 18, TypeScript, Vite, React Router, Redux Toolkit + RTK Query,
   Mantine (theme authority), Tailwind (token-backed utilities), Framer Motion,
